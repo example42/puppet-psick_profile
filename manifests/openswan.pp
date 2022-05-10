@@ -4,7 +4,7 @@ class psick_profile::openswan (
 
   Psick::Ensure   $ensure                   = 'present',
 
-  String                     $module        = 'tp_profile',
+  String                     $module        = 'psick_profile',
 
   Hash                       $connections    = {},
   Hash                       $setup_options  = {},
@@ -23,8 +23,8 @@ class psick_profile::openswan (
     }
 
     case $module {
-      'tp_profile': {
-        contain ::tp_profile::openswan
+      'psick_profile': {
+        contain ::psick_profile::openswan::install
       }
       default: {
         contain ::openswan

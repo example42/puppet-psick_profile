@@ -2,5 +2,17 @@
 # See https://github.com/puppetlabs/puppetlabs_spec_helper#using-fixtures for details
 ---
 fixtures:
-  forge_modules:
-#     stdlib: "puppetlabs/stdlib"
+  repositories:
+    "psick": "https://github.com/example42/puppet-psick"
+    "stdlib": "https://github.com/puppetlabs/puppetlabs-stdlib.git"
+    "vcsrepo": "https://github.com/puppetlabs/puppetlabs-vcsrepo.git"
+    "concat": "https://github.com/puppetlabs/puppetlabs-concat.git"
+    "tp": "https://github.com/example42/puppet-tp"
+    "tinydata": "https://github.com/example42/tinydata"
+    "oradb": "https://github.com/biemond/biemond-oradb"
+    "icinga2": "https://github.com/icinga/puppet-icinga2"
+    "icingaeb2": "https://github.com/icinga/puppet-icingaweb2"
+    "yumrepo": "https://github.com/puppetlabs/puppetlabs-yumrepo_core"
+    "chocolatey": "https://github.com/puppetlabs/puppetlabs-chocolatey"
+    "homebrew": "https://github.com/michaelw/puppet-homebrew"
+  repos:

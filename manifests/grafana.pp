@@ -58,7 +58,7 @@ class psick_profile::grafana (
 
     # Managed resources according to $module selected
     case $module {
-      'tp_profile': {
+      'psick_profile': {
         contain ::psick_profile::grafana::install
       }
       default: {

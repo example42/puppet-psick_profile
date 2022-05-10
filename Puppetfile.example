@@ -1,0 +1,35 @@
+# This is a list of modules prerequisites you need when using psick_profiles
+# Since you are likely not to use all the profiles here, we refer the dependencies
+# for each profile
+# Format of Puppetfile is used. So that you can copy and paste what you need in
+# your control-repo's Puppetfile
+
+# When versions are placed their refer to the last cersion tested
+# In some cases other versions may work as well
+
+# General dependencies
+# Used by most of the psick profiles
+mod 'example42-tp', '3.2.0'
+mod 'example42-tinydata', '0.4.5'
+mod 'example42-psick', '0.8.1'
+mod 'puppetlabs-stdlib', '8.1.0'
+
+# Extra dependencies
+# Used by some profiles
+mod 'puppetlabs-concat', '7.1.1'
+
+# Used with Windows nodes
+mod 'puppetlabs-chocolatey', '6.1.1'
+
+# Used wtih MacOS nodes (This fork has M1 support)
+mod 'michaelw-homebrew', :git => 'https://github.com/michaelw/puppet-homebrew'
+
+
+# Used by psick_profile::oracle (and sub classes)
+mod 'biemond-oradb', '3.0.19'
+
+# Used by psick_profile::icinga2
+mod 'icinga-icinga2', '3.2.2'
+
+# Used by psick_profile::icingaweb2
+mod 'icinga-icingaweb2', '3.2.2'

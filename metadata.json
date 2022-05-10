@@ -1,10 +1,10 @@
 {
   "name": "example42-psick_profile",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "author": "Alessandro Franceschi",
   "summary": "A collection of opinionated, reusable Puppet profiles for common applications",
   "license": "Apache-2.0",
-  "source": "",
+  "source": "https://github.com/example42/puppet-psick",
   "dependencies": [
     {
       "name": "example42/tp",
@@ -49,7 +49,7 @@
     {
       "operatingsystem": "Ubuntu",
       "operatingsystemrelease": [
-        "18.04"
+        "20.04"
       ]
     },
     {
@@ -72,7 +72,7 @@
       "version_requirement": ">= 6.21.0 < 8.0.0"
     }
   ],
-  "pdk-version": "2.3.0",
+  "pdk-version": "2.4.0",
   "template-url": "pdk-default#2.3.0",
   "template-ref": "tags/2.3.0-0-g8aaceff"
 }

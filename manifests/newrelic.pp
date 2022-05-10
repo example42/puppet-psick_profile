@@ -16,7 +16,7 @@ class psick_profile::newrelic (
     }
     $options_default = {
       license_key => 'CHANGEME',
-      proxy       => $::psick::http_proxy,
+      proxy       => ${proxy_server['host']},
     }
     #
     $options_user=lookup('newrelic_options', Hash, 'deep', {} )

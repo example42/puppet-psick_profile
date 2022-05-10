@@ -10,7 +10,7 @@ class psick_profile::mongo (
   Variant[Undef,Hash]    $databases        = undef,
   Variant[Undef,Hash]    $hostnames        = undef,
 
-  String                 $disable_huge_pages_class = 'psick::disable_huge_pages',
+  String                 $disable_huge_pages_class = '',
   String                 $mongo_class              = 'psick_profile::mongo::install',
   String                 $mms_class                = '',
 

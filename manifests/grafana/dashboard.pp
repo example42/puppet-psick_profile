@@ -13,7 +13,6 @@
 #         options:
 #           path: '/var/lib/grafana/dashboards'
 #
-
 define psick_profile::grafana::dashboard (
   Enum['present','absent'] $ensure = 'present',
   Optional[String] $template       = undef,

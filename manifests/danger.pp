@@ -7,7 +7,7 @@
 # @param install_system_gems If to install danger gems on the system
 # @param install_puppet_gems If to install danger gems via puppet gem
 #
-class psick_profile::ci::danger (
+class psick_profile::danger (
   String $ensure               = 'present',
   Array $plugins               = [ ],
   Boolean $use_gitlab          = false,
