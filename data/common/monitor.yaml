@@ -1,0 +1,7 @@
+---
+# psick_profile::ganglia
+psick_profile::ganglia::packages: []
+
+# psick_profile::snmpd
+psick_profile::snmpd::extra_packages: []
+
