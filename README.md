@@ -1,5 +1,8 @@
 # psick_profile
 
+[![Coverage Status](https://coveralls.io/repos/example42/puppet-psick_profile/badge.svg?branch=master&service=github)](https://coveralls.io/github/example42/puppet-psick_profile?branch=master)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/81f58c072b394923b760927ff1ad28ef)](https://www.codacy.com/gh/example42/puppet-psick_profile/dashboard?utm_source=github.com&utm_medium=referral&utm_content=example42/puppet-psick_profile&utm_campaign=Badge_Grade)
+
 This module provides a collection of reusable profiles for common applications.
 
 For most of the profiles is not needed a component module.
@@ -8,14 +11,18 @@ Prerequites for this module are example42's tp and psick modules.
 
 ## Table of Contents
 
-1. [Description](#description)
-1. [Setup - The basics of getting started with psick_profile](#setup)
-    * [What psick_profile affects](#what-psick_profile-affects)
-    * [Setup requirements](#setup-requirements)
-    * [Beginning with psick_profile](#beginning-with-psick_profile)
-1. [Usage - Configuration options and additional functionality](#usage)
-1. [Limitations - OS compatibility, etc.](#limitations)
-1. [Development - Guide for contributing to the module](#development)
+1.  [Description](#description)
+
+2.  [Setup - The basics of getting started with psick_profile](#setup)
+    -   [What psick_profile affects](#what-psick_profile-affects)
+    -   [Setup requirements](#setup-requirements)
+    -   [Beginning with psick_profile](#beginning-with-psick_profile)
+
+3.  [Usage - Configuration options and additional functionality](#usage)
+
+4.  [Limitations - OS compatibility, etc.](#limitations)
+
+5.  [Development - Guide for contributing to the module](#development)
 
 ## Description
 
@@ -25,7 +32,8 @@ or with component modules.
 
 For documentation on the specific application profiles refere to the relevant doc pages, when present:
 
-- [psick_profile::oracle](docs/oracle.md) - Manage Oracle prerequisites and installation
+-   [psick_profile::oracle](docs/oracle.md) - Manage Oracle prerequisites and installation
+
 ## Setup
 
 Every psick profile can be classified and used indipendently.
@@ -33,7 +41,6 @@ Every psick profile can be classified and used indipendently.
 You need to classify also the psick class from the psick module (which by default, without 
 specific Hiera data it does nothing) in order to leverage on the general variables
 set in the main psick class and used in the psick modules.
-
 
 ### What psick_profile affects
 
@@ -48,19 +55,19 @@ Refere to each profile documentation for more info on the managed resources.
 
 Psick_profile module requires:
 
-* example42-psick module
-* example42-tp module (which need the example42-tinydata module)
+-   example42-psick module
+-   example42-tp module (which need the example42-tinydata module)
 
 The above, of course, need stdlib, which you probably are already using:
 
-* puppetlabs/stdlib
+-   puppetlabs/stdlib
 
 According to the OS used you might need other modules:
 
-* puppetlabs/vcsrepo (if tp::dir define is used with vcsrepos)
-* puppetlabs/concat (might be needed in some profiles)
-* puppetlabs/chocolatey (on Windows nodes)
-* homebrew module (on Darwin nodes)
+-   puppetlabs/vcsrepo (if tp::dir define is used with vcsrepos)
+-   puppetlabs/concat (might be needed in some profiles)
+-   puppetlabs/chocolatey (on Windows nodes)
+-   homebrew module (on Darwin nodes)
 
 Some profiles might require an additional component modules.
 
@@ -74,7 +81,6 @@ mod 'example42-psick', latest
 mod 'puppetlabs-stdlib', latest
 
 Too many? Well this module and the above are probably enough to configure 90% of what you need to manage with Puppet ;-)
-
 
 ### Beginning with psick_profile
 
@@ -136,11 +142,9 @@ Note that each of the above Hiera keys (looked up in Deep merge mode) allows you
 The value of each Hiera key is an hash of key values: the keys can be any string and you can use to override the classes to include at different Hiera levels.
 The values are simply the classes to classify: they can be your own profiles, a componenent module class, a profile from the psick module or a profile from this module.
 
-
 ## Usage
 
 Looks at the single profiles in code documentation or at the directory in docs.
-
 
 ## Limitations
 

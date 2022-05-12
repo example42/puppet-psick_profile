@@ -4,7 +4,7 @@
   "author": "Alessandro Franceschi",
   "summary": "A collection of opinionated, reusable Puppet profiles for common applications",
   "license": "Apache-2.0",
-  "source": "https://github.com/example42/psick_profile",
+  "source": "https://github.com/example42/puppet-psick_profile",
   "dependencies": [
     {
       "name": "example42/tp",
