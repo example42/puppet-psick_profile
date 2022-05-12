@@ -144,7 +144,7 @@ The values are simply the classes to classify: they can be your own profiles, a 
 
 ## Usage
 
-Looks at the single profiles in code documentation or at the directory in docs.
+Look at the single profiles in code documentation or at the directory in docs.
 
 ## Limitations
 
