@@ -39,10 +39,8 @@ define psick_profile::grafana::datasource (
   Optional[Boolean] $editable           = undef,
   Optional[Hash]    $options            = {},
 ) {
-
   tp::conf { "grafana::${file_name}":
     content  => template($template),
     base_dir => 'datasources',
   }
-
 }

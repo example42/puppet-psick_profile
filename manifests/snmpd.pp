@@ -31,7 +31,7 @@ class psick_profile::snmpd (
       'rocommunity' => 'public',
     }
 
-    $options_user=lookup('psick_profile::snmpd::options', Hash, 'deep', {} )
+    $options_user=lookup('psick_profile::snmpd::options', Hash, 'deep', {})
     $options=merge($options_default,$options_user)
 
     ::tp::install { 'snmpd':

@@ -18,10 +18,9 @@
 #
 class psick_profile::oracle::prerequisites::limits (
   Optional[String] $template = 'psick_profile/oracle/limits/oracle.erb',
-  Hash $options              = { },
+  Hash $options              = {},
   Boolean $use_defaults      = true,
 ) {
-
   $defaults = {
     'all.nofile.soft'     => '1024',
     'all.nofile.hard'     => '8192',
@@ -46,5 +45,4 @@ class psick_profile::oracle::prerequisites::limits (
       content => template($template),
     }
   }
-
 }

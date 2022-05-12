@@ -34,8 +34,7 @@ define psick_profile::influxdb::database (
   Optional[String] $server_user     = undef,
   Optional[String] $server_password = undef,
   Hash $exec_params                 = {},
-){
-
+) {
   # Build command line arguments
   $host_param = "-host '${server_host}'"
   $port_param = $server_port ? {
@@ -83,5 +82,4 @@ define psick_profile::influxdb::database (
   exec { $exec_title:
     * => $exec_default_options + $exec_params,
   }
-
 }

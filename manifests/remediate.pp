@@ -110,5 +110,4 @@ class psick_profile::remediate (
       unless   => 'if [[ $(docker ps | grep puppet-discover  | grep healthy | wc -l) < 10 ]] ; then false ; else true ; fi' # lint:ignore:140chars # 10 remediate instances by default (as in 201909),
     }
   }
-
 }

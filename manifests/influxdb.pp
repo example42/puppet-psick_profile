@@ -48,10 +48,8 @@ class psick_profile::influxdb (
   Boolean         $noop_value               = $::psick::noop_value,
 
 ) {
-
   # We declare resources only if $manage = true
   if $manage {
-
     if $noop_manage {
       noop($noop_value)
     }
@@ -59,7 +57,7 @@ class psick_profile::influxdb (
     # Managed resources according to $module selected
     case $module {
       'tp_profile': {
-        contain ::psick_profile::influxdb::install
+        contain psick_profile::influxdb::install
         #$users_hash.each | $k,$v | {
         #  psick_profile::influxdb::users { $k:
         #    * => $v,
@@ -80,7 +78,6 @@ class psick_profile::influxdb (
             * => $v,
           }
         }
-
       }
       default: {
         contain $module

@@ -27,23 +27,22 @@ class psick_profile::rundeck (
   Boolean          $auto_prereq   = $::psick::auto_prereq,
   Optional[String] $template      = undef,
   Optional[String] $init_template = undef,
-  Hash             $options       = { },
+  Hash             $options       = {},
 
   Boolean          $manage        = $::psick::manage,
   Boolean          $noop_manage   = $::psick::noop_manage,
   Boolean          $noop_value    = $::psick::noop_value,
 ) {
-
   if $manage {
     if $noop_manage {
       noop($noop_value)
     }
 
     $options_default = {
-      'framework.server.name'     => $::fqdn,
-      'framework.server.hostname' => $::fqdn,
+      'framework.server.name'     => $facts['networking']['fqdn'],
+      'framework.server.hostname' => $facts['networking']['fqdn'],
       'framework.server.port'     => '4440',
-      'framework.server.url'      => "http://${::fqdn}:4440",
+      'framework.server.url'      => "http://${facts['networking']['fqdn']}:4440",
       'framework.ssh.keypath'     => '/var/lib/rundeck/.ssh/id_rsa',
       'framework.ssh.user'        => 'rundeck',
       'framework.ssh.timeout'     => '0',

@@ -7,7 +7,6 @@ define psick_profile::keepalived::vs (
   String $template        = 'psick_profile/keepalived/vs.conf.epp',
   Optional[Hash] $servers = undef,
 ) {
-
   # We use the last digit of the $vip for the default virtual router id
   $vip_elements = split($vip, '[.]')
 

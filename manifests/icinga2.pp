@@ -25,7 +25,7 @@
 class psick_profile::icinga2 (
   String          $ensure                  = 'present',
 
-  String           $master                 = "icinga.${::domain}",
+  String           $master                 = "icinga.${facts['networking']['domain']}",
   Boolean          $is_client              = true,
   Boolean          $is_server              = false,
 
@@ -117,7 +117,6 @@ class psick_profile::icinga2 (
   Boolean $noop_manage                     = $::psick::noop_manage,
   Boolean $noop_value                      = $::psick::noop_value,
 ) {
-
   if $manage {
     if $noop_manage {
       noop($noop_value)
@@ -133,7 +132,7 @@ class psick_profile::icinga2 (
       #      confd    => 'zones.d',
     }
     class { 'icinga2':
-      * => $default_params + $icinga2_class_params
+      * => $default_params + $icinga2_class_params,
     }
 
     # Handle InfluxDB configuration
@@ -182,7 +181,7 @@ class psick_profile::icinga2 (
         privilege       => $influxdb_settings['grant'],
         require         => Psick_profile::Influxdb::User['icinga2'],
       }
-      class { '::icinga2::feature::influxdb':
+      class { 'icinga2::feature::influxdb':
         host     => $influxdb_settings['host'],
         port     => $influxdb_settings['port'],
         username => $influxdb_settings['user'],
@@ -204,7 +203,7 @@ class psick_profile::icinga2 (
             privileges => $ido_settings['grant'],
             host       => $ido_settings['host'],
           }
-          class { '::icinga2::feature::idomysql':
+          class { 'icinga2::feature::idomysql':
             user          => $ido_settings['user'],
             password      => $ido_settings['password'],
             database      => $ido_settings['database'],
@@ -221,7 +220,7 @@ class psick_profile::icinga2 (
             privileges => $ido_settings['grant'],
             host       => $ido_settings['host'],
           }
-          class { '::icinga2::feature::idomysql':
+          class { 'icinga2::feature::idomysql':
             user          => $ido_settings['user'],
             password      => $ido_settings['password'],
             database      => $ido_settings['database'],
@@ -235,7 +234,7 @@ class psick_profile::icinga2 (
             user     => $ido_settings['user'],
             password => postgresql_password($ido_settings['user'], $ido_settings['password']),
           }
-          class { '::icinga2::feature::idopgsql':
+          class { 'icinga2::feature::idopgsql':
             user          => $ido_settings['user'],
             password      => $ido_settings['password'],
             database      => $ido_settings['database'],
@@ -281,12 +280,12 @@ class psick_profile::icinga2 (
               virtual    => $nodes_facts[0]['facts']['virtual'],
               role       => getvar("nodes_facts.0.facts.${puppetdb_fact_role}"),
               env        => getvar("nodes_facts.0.facts.${puppetdb_fact_env}"),
-            }
+            },
           }
         } else {
           $puppetdb_params = {}
         }
-        $hiera_override = pick ($puppetdb_hosts_override_hash[$k],{} )
+        $hiera_override = pick ($puppetdb_hosts_override_hash[$k],{})
         ::icinga2::object::host { $k:
           * => deep_merge($host_default_params,$puppetdb_params,$hiera_override),
         }
@@ -299,9 +298,9 @@ class psick_profile::icinga2 (
         $local_zones_params = {
           ensure    => $ensure,
           parent    => 'master',
-          endpoints => [ $k ],
+          endpoints => [$k],
         }
-        $hiera_zones_override = pick ($puppetdb_zones_override_hash[$k],{} )
+        $hiera_zones_override = pick ($puppetdb_zones_override_hash[$k],{})
         if $k != $master {
           ::icinga2::object::zone { $k:
             * => deep_merge($zone_default_params,$local_zones_params,$hiera_zones_override),
@@ -312,7 +311,7 @@ class psick_profile::icinga2 (
           ensure => $ensure,
           host   => $k,
         }
-        $hiera_endpoints_override = pick ($puppetdb_endpoints_override_hash[$k],{} )
+        $hiera_endpoints_override = pick ($puppetdb_endpoints_override_hash[$k],{})
         ::icinga2::object::endpoint { $k:
           * => deep_merge($endpoint_default_params,$local_endpoints_params,$hiera_endpoints_override),
         }
@@ -325,27 +324,27 @@ class psick_profile::icinga2 (
       if $is_server and $puppetdb_zones_import {
         $client_zones_hash = {
           'master' => {
-            endpoints => [ $master ],
-          }
+            endpoints => [$master],
+          },
         }
         $client_endpoints_hash = {}
       } else {
         $client_zones_hash = {
           'master' => {
-            endpoints => [ $master ],
+            endpoints => [$master],
           },
-          $::fqdn => {
-            endpoints => [ $::fqdn ],
+          $facts['networking']['fqdn'] => {
+            endpoints => [$facts['networking']['fqdn']],
             parent    => 'master',
-          }
+          },
         }
         $client_endpoints_hash = {
           $master => {
             host => $master,
           },
-          $::fqdn => {
-            host => $::fqdn,
-          }
+          $facts['networking']['fqdn'] => {
+            host => $facts['networking']['fqdn'],
+          },
         }
       }
     } else {
@@ -459,6 +458,5 @@ class psick_profile::icinga2 (
         * => $checkresultreader_default_params + $v,
       }
     }
-
   } # END if $manage
 }

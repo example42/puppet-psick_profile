@@ -21,7 +21,6 @@ class psick_profile::oracle::prerequisites::users (
   Boolean $use_defaults           = true,
 
 ) {
-
   $default_groups = {
     oinstall => {
       gid => '700',
@@ -55,7 +54,7 @@ class psick_profile::oracle::prerequisites::users (
         'gid' => '708',
       },
     },
-    false => { },
+    false => {},
   }
 
   $all_groups = $use_defaults ? {
@@ -69,14 +68,13 @@ class psick_profile::oracle::prerequisites::users (
     }
   }
 
-
   $default_users = {
     gridora => {
       uid     => '700',
       gid     => '700',
       groups  => $has_asm ? {
-        true  => [ 'asmdba','asmadmin','asmoper' ],
-        false => [ 'dba' ],
+        true  => ['asmdba','asmadmin','asmoper'],
+        false => ['dba'],
       },
       shell   => '/bin/bash',
       home    => '/home/gridora',
@@ -87,8 +85,8 @@ class psick_profile::oracle::prerequisites::users (
       uid     => '701',
       gid     => '700',
       groups  => $has_asm ? {
-        true  => [ 'dba','oper','backupdba','dgdba','kmdba','asmdba' ],
-        false => [ 'dba','oper','backupdba','dgdba','kmdba' ],
+        true  => ['dba','oper','backupdba','dgdba','kmdba','asmdba'],
+        false => ['dba','oper','backupdba','dgdba','kmdba'],
       },
       shell   => '/bin/bash',
       home    => '/home/gridora',
@@ -107,5 +105,4 @@ class psick_profile::oracle::prerequisites::users (
       * => $v,
     }
   }
-
 }

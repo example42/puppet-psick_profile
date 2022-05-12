@@ -116,7 +116,6 @@ class psick_profile::postfix (
   Boolean            $noop_manage              = false,
   Boolean            $noop_value               = false,
 ) {
-
   $options=lookup('psick_profile::postfix::options', Hash, $options_lookup_method, {})
 
   if $manage {

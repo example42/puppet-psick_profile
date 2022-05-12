@@ -1,19 +1,19 @@
 #
 define psick_profile::oracle::instance (
-  $version               = $::psick_profile::oracle::params::version_short,
-  $version_short         = $::psick_profile::oracle::params::version_short,
+  $version               = $psick_profile::oracle::params::version_short,
+  $version_short         = $psick_profile::oracle::params::version_short,
 
-  $oracle_base           = $::psick_profile::oracle::params::oracle_base,
-  $oracle_home           = $::psick_profile::oracle::params::oracle_home,
-  $download_dir          = $::psick_profile::oracle::params::download_dir,
+  $oracle_base           = $psick_profile::oracle::params::oracle_base,
+  $oracle_home           = $psick_profile::oracle::params::oracle_home,
+  $download_dir          = $psick_profile::oracle::params::download_dir,
 
-  $oracle_user           = $::psick_profile::oracle::params::oracle_user,
-  $oracle_group          = $::psick_profile::oracle::params::oracle_group,
+  $oracle_user           = $psick_profile::oracle::params::oracle_user,
+  $oracle_group          = $psick_profile::oracle::params::oracle_group,
 
   $dbinstance_type       = 'MULTIPURPOSE',
   $action                = 'create',
   $db_name               = $title,
-  $db_domain             = $::domain,
+  $db_domain             = $facts['networking']['domain'],
   $db_port               = '1521',
   $sys_passwd            = 'oracle',
   $system_passwd         = 'oracle',
@@ -21,7 +21,7 @@ define psick_profile::oracle::instance (
   $recovery_path         = '/export/oracle/flash_recovery_area',
   $character_set         = 'AL32UTF8',
   $national_character_set = 'UTF8',
-  $init_params_hash      = { },
+  $init_params_hash      = {},
   $sample_schema         = 'FALSE',
   $memory_percentage     = '40',
   $memory_total          = '800',
@@ -30,7 +30,6 @@ define psick_profile::oracle::instance (
   $container_database    = false,
   $autostart             = true,
 ) {
-
   $real_container_database = $container_database ? {
     undef  => $version_short ? {
       '12.1'  => true,
@@ -46,7 +45,7 @@ define psick_profile::oracle::instance (
     group       => $oracle_group,
     downloadDir => $download_dir,
     dbPort      => $db_port,
-    require     => Class[$::psick_profile::oracle::install_db_class],
+    require     => Class[$psick_profile::oracle::install_db_class],
   }
 
   db_listener { $title:
@@ -65,7 +64,7 @@ define psick_profile::oracle::instance (
 
   $init_params=merge($default_init_params, $init_params_hash)
 
-  oradb::database{ $title:
+  oradb::database { $title:
     oracleBase              => $oracle_base,
     oracleHome              => $oracle_home,
     version                 => $version_short,
@@ -94,7 +93,7 @@ define psick_profile::oracle::instance (
   }
 
   if $real_container_database == true {
-    oradb::database_pluggable{'pdb1':
+    oradb::database_pluggable { 'pdb1':
       ensure                   => 'present',
       oracle_home_dir          => $oracle_home,
       version                  => $version_short,
@@ -111,7 +110,7 @@ define psick_profile::oracle::instance (
     }
   }
   if $autostart == true {
-    oradb::autostartdatabase{ $title:
+    oradb::autostartdatabase { $title:
       oracleHome => $oracle_home,
       user       => $oracle_user,
       dbName     => $db_name,

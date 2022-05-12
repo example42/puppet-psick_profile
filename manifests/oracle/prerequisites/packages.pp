@@ -16,9 +16,8 @@ class psick_profile::oracle::prerequisites::packages (
   Boolean $use_defaults = true,
   Array $extra_packages = [],
 ) {
-
   if $use_defaults {
-    case $::osfamily {
+    case $facts['os']['family'] {
       'Suse': {
         $default_packages = [
           'binutils',
@@ -135,7 +134,7 @@ class psick_profile::oracle::prerequisites::packages (
           'libc6-dev-i386',
         ]
       }
-      default: { notice("Unsupported ${::osfamily} in psick_profile::oracle::prerequisites::packages") }
+      default: { notice("Unsupported ${facts['os']['family']} in psick_profile::oracle::prerequisites::packages") }
     }
   } else {
     $default_packages = []

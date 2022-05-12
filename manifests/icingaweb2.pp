@@ -42,8 +42,8 @@ class psick_profile::icingaweb2 (
   Optional[String]       $webserver_class = '::psick::apache::install',
   Optional[String]       $dbserver_class  = '::psick::mariadb::install',
   Optional[String]       $template        = undef,
-  Hash                   $options         = { },
-  Hash                   $tp_conf_hash    = { },
+  Hash                   $options         = {},
+  Hash                   $tp_conf_hash    = {},
 
   Boolean $db_manage                      = true,
   Optional[Enum['mysql','mariadb','pgsql']] $db_backend = 'mysql',
@@ -66,10 +66,10 @@ class psick_profile::icingaweb2 (
   Hash $monitoring_module_params          = {},
 
   Boolean $api_user_manage                = true,
-  String $api_host                        = pick($::psick_profile::icinga2::master,$clientcert),
+  String $api_host                        = pick($psick_profile::icinga2::master,$clientcert),
   String $api_user                        = 'icingaweb2',
   String $api_password                    = 'icingaweb2apiuser',
-  Array $api_user_permissions             = [ 'status/query', 'actions/*', 'objects/modify/*', 'objects/query/*' ],
+  Array $api_user_permissions             = ['status/query', 'actions/*', 'objects/modify/*', 'objects/query/*'],
 
   Boolean $puppetdb_module_manage         = false,
   Hash $puppetdb_module_params            = {},
@@ -85,7 +85,7 @@ class psick_profile::icingaweb2 (
   Hash $grafana_params                    = {},
   Hash $grafana_settings                  = {},
 
-  Hash $extra_modules                     = { },
+  Hash $extra_modules                     = {},
 
   Boolean $git_manage                     = true,
 
@@ -93,7 +93,6 @@ class psick_profile::icingaweb2 (
   Boolean          $noop_manage          = $::psick::noop_manage,
   Boolean          $noop_value           = $::psick::noop_value,
 ) {
-
   if $manage {
     if $noop_manage {
       noop($noop_value)
@@ -151,12 +150,12 @@ class psick_profile::icingaweb2 (
             config_backend => $config_backend,
           },
         }
-        class { '::icingaweb2':
+        class { 'icingaweb2':
           * => $default_icingaweb2_params + $icingaweb2_params,
         }
-        if $auto_prereq and $::osfamily == 'RedHat' {
+        if $auto_prereq and $facts['os']['family'] == 'RedHat' {
           tp::install { 'scl':
-            before => [ Package['icingaweb2'] , Class['psick::php::fpm'] ],
+            before => [Package['icingaweb2'], Class['psick::php::fpm']],
           }
         }
 
@@ -181,8 +180,8 @@ class psick_profile::icingaweb2 (
                 transport => 'api',
                 username  => $api_user,
                 password  => $api_password,
-              }
-            }
+              },
+            },
           }
           class { 'icingaweb2::module::monitoring':
             * => $monitoring_module_defaults + $monitoring_module_params,
@@ -218,7 +217,7 @@ class psick_profile::icingaweb2 (
             api_host      => $api_host,
             api_username  => $api_user,
             api_password  => $api_password,
-            endpoint      => pick($::psick_profile::icinga2::master,$clientcert),
+            endpoint      => pick($psick_profile::icinga2::master,$clientcert),
           }
           class { 'icingaweb2::module::director':
             * => $director_module_defaults + $director_module_params,
@@ -269,9 +268,9 @@ class psick_profile::icingaweb2 (
                   secure_json_data => {
                     password          => $influxdb_settings['password'],
                     basicAuthPassword => $grafana_settings['password'],
-                  }
-                }
-              }
+                  },
+                },
+              },
             }
             class { 'psick_profile::grafana':
               * => $grafana_defaults + $grafana_params,
@@ -290,7 +289,7 @@ class psick_profile::icingaweb2 (
         }
 
         if $git_manage {
-          include ::psick::git
+          include psick::git
         }
         $extra_modules.each |$k,$v| {
           class { "::icingaweb2::module::${k}":
@@ -333,10 +332,9 @@ class psick_profile::icingaweb2 (
             before   => Package['icingaweb2'],
           }
         }
-        default: { }
+        default: {}
       } # END case $db_backend
     } # END if $db_manage
-
 
     if $director_db_manage and $director_module_manage {
       case $director_db_backend {
@@ -370,7 +368,7 @@ class psick_profile::icingaweb2 (
             before   => Package['icingaweb2'],
           }
         }
-        default: { }
+        default: {}
       } # END case $diretor_db_backend
     } # END if $director_db_manage
 
@@ -380,7 +378,7 @@ class psick_profile::icingaweb2 (
         'mysql'   => 'Mysql',
         'pgsql'   => 'Pgsql',
       }
-      $zend_package_require = $::osfamily ? {
+      $zend_package_require = $facts['os']['family'] ? {
         'RedHat' => Tp::Install['epel'],
         default  => undef,
       }
@@ -394,11 +392,11 @@ class psick_profile::icingaweb2 (
       augeas { 'php_date_timezone':
         context => '/files/etc/php.ini/DATE',
         changes => [
-          "set date.timezone ${::psick::timezone}",
+          "set date.timezone ${facts['psick::timezone']}",
         ],
       }
     }
-    if $::selinux and $install_icingaweb2_selinux {
+    if $facts['os']['selinux']['enabled'] and $install_icingaweb2_selinux {
       package { 'icingaweb2-selinux':
         ensure  => $ensure,
         require => Class['icinga2'],
@@ -411,7 +409,6 @@ class psick_profile::icingaweb2 (
         service_name => $php_fpm_name,
         subscribe    => Class['icingaweb2'],
       }
-
     }
   }
 }

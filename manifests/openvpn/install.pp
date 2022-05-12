@@ -116,7 +116,6 @@ class psick_profile::openvpn::install (
   Boolean            $noop_manage              = false,
   Boolean            $noop_value               = false,
 ) {
-
   $options=lookup('psick_profile::openvpn::install::options', Hash, $options_lookup_method, {})
 
   if $manage {

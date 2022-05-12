@@ -1,22 +1,22 @@
 #
 class psick_profile::oracle::resources (
   # Resource types provided by hajee/oracle module
-  Hash $ora_listeners       = { },
-  Hash $ora_users           = { },
-  Hash $ora_tablespaces     = { },
-  Hash $ora_roles           = { },
-  Hash $ora_services        = { },
-  Hash $ora_init_params     = { },
-  Hash $ora_asm_diskgroups  = { },
-  Hash $ora_execs           = { },
-  Hash $ora_threads         = { },
-  Hash $ora_databases       = { },
+  Hash $ora_listeners       = {},
+  Hash $ora_users           = {},
+  Hash $ora_tablespaces     = {},
+  Hash $ora_roles           = {},
+  Hash $ora_services        = {},
+  Hash $ora_init_params     = {},
+  Hash $ora_asm_diskgroups  = {},
+  Hash $ora_execs           = {},
+  Hash $ora_threads         = {},
+  Hash $ora_databases       = {},
 
   # Resource types provided by biemond/oradb module
-  Hash $db_opatchs          = { },
-  Hash $db_rcus             = { },
-  Hash $db_controls         = { },
-  Hash $db_listeners        = { },
+  Hash $db_opatchs          = {},
+  Hash $db_rcus             = {},
+  Hash $db_controls         = {},
+  Hash $db_listeners        = {},
 
   Boolean $manage           = $::psick::manage,
   Boolean $noop_manage      = $::psick::noop_manage,
@@ -58,7 +58,6 @@ class psick_profile::oracle::resources (
     if $ora_databases != '{ }' {
       create_resources('ora_databases',$ora_databases)
     }
-
 
     # Resource types provided by biemond/oradb module
     if $db_opatchs != '{ }' {

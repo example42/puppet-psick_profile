@@ -15,7 +15,6 @@ define psick_profile::grafana::user (
   Optional[String] $exec_require   = 'Service[grafana-server]',
   StdLib::Absolutepath $user_dir_path = '/root/puppet-grafana',
 ) {
-
   if (!defined(File[$user_dir_path])) {
     file { $user_dir_path:
       ensure => directory,
@@ -28,7 +27,7 @@ define psick_profile::grafana::user (
     notify  => Exec["grafana user add ${title}"],
     mode    => '0750',
     owner   => 'root',
-    content => template('psick_profile/grafana/user.erb')
+    content => template('psick_profile/grafana/user.erb'),
   }
   exec { "grafana user add ${title}":
     command     => "${user_dir_path}/${user}_${host}",

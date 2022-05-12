@@ -11,13 +11,12 @@ class psick_profile::prometheus (
   Boolean          $noop_manage          = $::psick::noop_manage,
   Boolean          $noop_value           = $::psick::noop_value,
 ) {
-
   if $manage {
     if $noop_manage {
       noop($noop_value)
     }
 
-    class { '::prometheus':
+    class { 'prometheus':
       manage_user              => true,
       manage_group             => true,
       manage_prometheus_server => true,
@@ -45,7 +44,7 @@ class psick_profile::prometheus (
             {
               'targets' => ['localhost:9090'],
               'labels'  => {
-                'alias' =>'Prometheus',
+                'alias' => 'Prometheus',
               },
             },
           ],
@@ -54,7 +53,7 @@ class psick_profile::prometheus (
       alerts                   => $alerts,
       rule_files               => ['alert.rules', 'precomputed.rules'],
     }
-    file {'/etc/prometheus/precomputed.rules':
+    file { '/etc/prometheus/precomputed.rules':
       ensure  => file,
       content => epp('psick/prometheus/prometheus_server_precomputed.rules.epp'),
       notify  => Service['prometheus'],

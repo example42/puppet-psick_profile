@@ -8,7 +8,7 @@ class psick_profile::keepalived::balanced_host (
   String $lb_type               = 'keepalived',
   String $lb_name               = 'default',
   Boolean $lb_active            = true,
-  Hash $lb_options              = { },
+  Hash $lb_options              = {},
   Optional[String] $lb_template = undef,
   Boolean $manage               = true,
   Boolean $noop_manage          = false,
@@ -22,7 +22,7 @@ class psick_profile::keepalived::balanced_host (
     if $lb_active {
       $default_lb_options = {
         'connect_timeout' => 5,
-        'paths'           => [ '/' ],
+        'paths'           => ['/'],
       }
       $real_lb_options = $default_lb_options + $lb_options
       psick_profile::keepalived::balance { 'default':

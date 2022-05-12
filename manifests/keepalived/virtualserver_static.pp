@@ -10,7 +10,6 @@ define psick_profile::keepalived::virtualserver_static (
   String $template     = 'psick_profile/keepalived/services.conf.epp',
   Optional[Hash] $servers = undef,
 ) {
-
   # Priority is based on state
   $priority = $state ? {
     'MASTER' => '150',
@@ -36,7 +35,7 @@ define psick_profile::keepalived::virtualserver_static (
     'connect_timeout'    => '10',
     'retry'              => '3',
     'delay_before_retry' => '3',
-    'helo_name'          => $::fqdn,
+    'helo_name'          => $facts['networking']['fqdn'],
   }
   $real_servers_defaults_misc_check = {
     'misc_timeout'       => '10',
@@ -91,5 +90,4 @@ define psick_profile::keepalived::virtualserver_static (
       content => epp($template,$epp_options),
     }
   }
-
 }

@@ -1,10 +1,10 @@
 # psick_profile
 
-Welcome to your new module. A short overview of the generated parts can be found
-in the [PDK documentation][1].
+This module provides a collection of reusable profiles for common applications.
 
-The README template below provides a starting point with details about what
-information to include in your README.
+For most of the profiles is not needed a component module.
+
+Prerequites for this module are example42's tp and psick modules.
 
 ## Table of Contents
 
@@ -19,99 +19,133 @@ information to include in your README.
 
 ## Description
 
-Briefly tell users why they might want to use your module. Explain what your
-module does and what kind of problems users can solve with it.
+This module manages plenty of different profiles for many common applications.
+You can cherry pick which ones to use and make it cohexist with your own profiles
+or with component modules.
 
-This should be a fairly short description helps the user decide if your module
-is what they want.
+For documentation on the specific application profiles refere to the relevant doc pages, when present:
 
+- [psick_profile::oracle](docs/oracle.md) - Manage Oracle prerequisites and installation
 ## Setup
 
-### What psick_profile affects **OPTIONAL**
+Every psick profile can be classified and used indipendently.
 
-If it's obvious what your module touches, you can skip this section. For
-example, folks can probably figure out that your mysql_instance module affects
-their MySQL instances.
+You need to classify also the psick class from the psick module (which by default, without 
+specific Hiera data it does nothing) in order to leverage on the general variables
+set in the main psick class and used in the psick modules.
 
-If there's more that they should know about, though, this is the place to
-mention:
 
-* Files, packages, services, or operations that the module will alter, impact,
-  or execute.
-* Dependencies that your module automatically installs.
-* Warnings or other important notices.
+### What psick_profile affects
 
-### Setup Requirements **OPTIONAL**
+Every psick profile manages the relevant application.
 
-If your module requires anything extra before setting up (pluginsync enabled,
-another module, etc.), mention it here.
+In some cases you have the option if to use an external component module to install it
+or use Tiny Puppet.
 
-If your most recent release breaks compatibility or requires particular steps
-for upgrading, you might want to include an additional "Upgrading" section here.
+Refere to each profile documentation for more info on the managed resources.
+
+### Setup Requirements
+
+Psick_profile module requires:
+
+* example42-psick module
+* example42-tp module (which need the example42-tinydata module)
+
+The above, of course, need stdlib, which you probably are already using:
+
+* puppetlabs/stdlib
+
+According to the OS used you might need other modules:
+
+* puppetlabs/vcsrepo (if tp::dir define is used with vcsrepos)
+* puppetlabs/concat (might be needed in some profiles)
+* puppetlabs/chocolatey (on Windows nodes)
+* homebrew module (on Darwin nodes)
+
+Some profiles might require an additional component modules.
+
+Refer to [Puppetfile](docs/Puppetfile) in the docs dir for the complete reference of needed modules, in Puppetfile format.
+
+The minimal needs, for Linux nodes are as follows:
+
+mod 'example42-tp', latest
+mod 'example42-tinydata', latest
+mod 'example42-psick', latest
+mod 'puppetlabs-stdlib', latest
+
+Too many? Well this module and the above are probably enough to configure 90% of what you need to manage with Puppet ;-)
+
 
 ### Beginning with psick_profile
 
-The very basic steps needed for a user to get the module up and running. This
-can include setup steps, if necessary, or it can be an example of the most basic
-use of the module.
+Use whatever classification approach you want and classify the psick profile you want to use.
+
+Remember to classify the psick class as well.
+
+Considering that psick class can be used also for classification, all you might need is something as follows:
+
+In your control-repos' `manifests/site.pp` just classify psick for all nodes:
+
+    node default{
+      include psick
+    }
+
+An then manage everything via Hiera (refer to psick documentation for details), classification included, with something like:
+
+    # Psick based classification for Linux nodes:
+    psick::pre::linux_classes:
+      puppet: psick::puppet
+      hostname: psick::hostname
+      hosts: psick::hosts::resource
+      dns: psick::dns::resolver
+      repo: psick::repo
+      users: psick::users
+    psick::base::linux_classes:
+      ssh: psick::openssh
+      sudo: psick::sudo
+      time: psick::time
+      sysctl: psick::sysctl
+      update: psick::update
+      motd: psick::motd
+      selinux: psick::selinux
+      limits: psick::limits
+      systat: psick_profile::sar
+      mail: psick_profile::postfix
+      icinga: psick_profile::icinga2
+      monitor_plugins: psick_profile::nagiosplugins
+
+    # Psick based classification for Windows nodes
+    psick::pre::windows_classes:
+      hosts: psick::hosts::resource
+      chocolatey: chocolatey
+    psick::base::windows_classes:
+      features: psick::windows::features
+      registry: psick::windows::registry
+      services: psick::windows::services
+      tp: tp
+
+    # Psick based classification for MacOS nodes
+    psick::pre::darwin_classes:
+      homebrew: homebrew
+      puppet: psick::puppet
+    psick::base::darwin_classes:
+      tp: tp
+
+Note that each of the above Hiera keys (looked up in Deep merge mode) allows you to classify classes for different OSes (Linxu, Windows, MacOS) in different stages, applied in order (pre, base, profile).
+
+The value of each Hiera key is an hash of key values: the keys can be any string and you can use to override the classes to include at different Hiera levels.
+The values are simply the classes to classify: they can be your own profiles, a componenent module class, a profile from the psick module or a profile from this module.
+
 
 ## Usage
 
-Include usage examples for common use cases in the **Usage** section. Show your
-users how to use your module to solve problems, and be sure to include code
-examples. Include three to five examples of the most important or common tasks a
-user can accomplish with your module. Show users how to accomplish more complex
-tasks that involve different types, classes, and functions working in tandem.
+Looks at the single profiles in code documentation or at the directory in docs.
 
-## Reference
-
-This section is deprecated. Instead, add reference information to your code as
-Puppet Strings comments, and then use Strings to generate a REFERENCE.md in your
-module. For details on how to add code comments and generate documentation with
-Strings, see the [Puppet Strings documentation][2] and [style guide][3].
-
-If you aren't ready to use Strings yet, manually create a REFERENCE.md in the
-root of your module directory and list out each of your module's classes,
-defined types, facts, functions, Puppet tasks, task plans, and resource types
-and providers, along with the parameters for each.
-
-For each element (class, defined type, function, and so on), list:
-
-* The data type, if applicable.
-* A description of what the element does.
-* Valid values, if the data type doesn't make it obvious.
-* Default value, if any.
-
-For example:
-
-```
-### `pet::cat`
-
-#### Parameters
-
-##### `meow`
-
-Enables vocalization in your cat. Valid options: 'string'.
-
-Default: 'medium-loud'.
-```
 
 ## Limitations
 
-In the Limitations section, list any incompatibilities, known issues, or other
-warnings.
+Not all the profiles are tested or work on every OS supported by this module.
 
 ## Development
 
-In the Development section, tell other users the ground rules for contributing
-to your project and how they should submit their work.
-
-## Release Notes/Contributors/Etc. **Optional**
-
-If you aren't using changelog, put your release notes here (though you should
-consider using changelog). You can also add any additional sections you feel are
-necessary or important to include here. Please use the `##` header.
-
-[1]: https://puppet.com/docs/pdk/latest/pdk_generating_modules.html
-[2]: https://puppet.com/docs/puppet/latest/puppet_strings.html
-[3]: https://puppet.com/docs/puppet/latest/puppet_strings_style.html
+To contribute to this module open a Pull Request on GitHub, and follow the instructions there.

@@ -116,7 +116,6 @@ class psick_profile::nginx (
   Boolean            $noop_manage              = false,
   Boolean            $noop_value               = false,
 ) {
-
   $options=lookup('psick_profile::nginx::options', Hash, $options_lookup_method, {})
 
   if $manage {

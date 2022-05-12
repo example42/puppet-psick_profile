@@ -14,7 +14,7 @@ class psick_profile::prometheus::node_exporter (
     if $noop_manage {
       noop($noop_value)
     }
-    class { '::prometheus::node_exporter':
+    class { 'prometheus::node_exporter':
       manage_user    => true,
       manage_group   => true,
       user           => 'prometheus',

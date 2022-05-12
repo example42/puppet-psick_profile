@@ -1,15 +1,15 @@
 #
 #
 class psick_profile::mongo::puppetlabs (
-  String                 $ensure           = $::psick_profile::mongo::ensure,
-  Variant[Undef,String]  $key              = $::psick_profile::mongo::key,
-  Variant[Undef,String]  $replset          = $::psick_profile::mongo::replset,
-  Variant[Undef,String]  $default_password = $::psick_profile::mongo::default_password,
-  Variant[Undef,String]  $replset_arbiter  = $::psick_profile::mongo::replset_arbiter,
-  Variant[Undef,Array]   $replset_members  = $::psick_profile::mongo::replset_members,
-  Variant[Undef,Boolean] $shardsvr         = $::psick_profile::mongo::shardsvr,
-  Variant[Undef,Hash]    $databases        = $::psick_profile::mongo::databases,
-  Variant[Undef,Hash]    $hostnames        = $::psick_profile::mongo::hostnames,
+  String                 $ensure           = $psick_profile::mongo::ensure,
+  Variant[Undef,String]  $key              = $psick_profile::mongo::key,
+  Variant[Undef,String]  $replset          = $psick_profile::mongo::replset,
+  Variant[Undef,String]  $default_password = $psick_profile::mongo::default_password,
+  Variant[Undef,String]  $replset_arbiter  = $psick_profile::mongo::replset_arbiter,
+  Variant[Undef,Array]   $replset_members  = $psick_profile::mongo::replset_members,
+  Variant[Undef,Boolean] $shardsvr         = $psick_profile::mongo::shardsvr,
+  Variant[Undef,Hash]    $databases        = $psick_profile::mongo::databases,
+  Variant[Undef,Hash]    $hostnames        = $psick_profile::mongo::hostnames,
   Boolean $manage                          = $::psick::manage,
   Boolean $noop_manage                     = $::psick::noop_manage,
   Boolean $noop_value                      = $::psick::noop_value,
@@ -19,13 +19,13 @@ class psick_profile::mongo::puppetlabs (
       noop($noop_value)
     }
 
-    class { '::mongodb::globals': manage_package_repo => true }
-    -> class { '::mongodb::client': }
-    -> class { '::mongodb::server':
+    class { 'mongodb::globals': manage_package_repo => true }
+    -> class { 'mongodb::client': }
+    -> class { 'mongodb::server':
       shardsvr        => $shardsvr,
       replset         => $replset,
       replset_members => $replset_members,
-      bind_ip         => [ '0.0.0.0' ],
+      bind_ip         => ['0.0.0.0'],
       auth            => true,
       keyfile         => '/etc/mongo.key',
       key             => $key,
@@ -44,7 +44,7 @@ class psick_profile::mongo::puppetlabs (
       $databases.each|$db,$db_options| {
         $default_options = {
           user          => "${db}_user",
-          roles         => [ 'readWrite' ],
+          roles         => ['readWrite'],
           password_hash => mongodb_password("${db}_user",pick_default($db_options['password'],$default_password)),
           tries         => 10,
         }

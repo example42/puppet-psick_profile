@@ -19,7 +19,6 @@ class psick_profile::mongo (
   Boolean          $noop_value           = $::psick::noop_value,
 
 ) {
-
   if $manage {
     if $noop_manage {
       noop($noop_value)

@@ -7,20 +7,19 @@
 #
 class psick_profile::vagrant (
   Variant[Undef,String] $version = undef,
-  Array $plugins         = [] ,
-  Array $default_plugins = [ 'vagrant-vbguest' ,  'vagrant-cachier' ],
+  Array $plugins         = [],
+  Array $default_plugins = ['vagrant-vbguest' ,  'vagrant-cachier'],
   String $user           = 'root',
 
   Boolean $manage        = $::psick::manage,
   Boolean $noop_manage   = $::psick::noop_manage,
   Boolean $noop_value    = $::psick::noop_value,
 ) {
-
   if $manage {
     if $noop_manage {
       noop($noop_value)
     }
-    class { '::vagrant':
+    class { 'vagrant':
       version => $version,
     }
 

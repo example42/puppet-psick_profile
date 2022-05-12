@@ -5,7 +5,7 @@ class psick_profile::sensu::uchiwa (
   Integer $port                    = 3000,
   Variant[String,Sensitive] $user  = 'sensu',
   Variant[String,Sensitive] $pass  = 'sensu',
-  Hash $api_endpoints              = { },
+  Hash $api_endpoints              = {},
   String $datacenter               = $::zone,
 
   Boolean $manage      = $::psick::manage,
@@ -17,17 +17,17 @@ class psick_profile::sensu::uchiwa (
       noop($noop_value)
     }
 
-    $default_api_endpoint = [ {
-      name     => $datacenter,
-      ssl      => false,
-      host     => $::psick_profile::sensu::api_host,
-      port     => $::psick_profile::sensu::api_port,
-      user     => $::psick_profile::sensu::api_user,
-      pass     => $::psick_profile::sensu::api_password,
-      path     => '',
-      timeout  => 5,
-    } ]
-    class { '::uchiwa':
+    $default_api_endpoint = [{
+        name     => $datacenter,
+        ssl      => false,
+        host     => $psick_profile::sensu::api_host,
+        port     => $psick_profile::sensu::api_port,
+        user     => $psick_profile::sensu::api_user,
+        pass     => $psick_profile::sensu::api_password,
+        path     => '',
+        timeout  => 5,
+    }]
+    class { 'uchiwa':
       host                => $host,
       port                => $port,
       user                => $user,

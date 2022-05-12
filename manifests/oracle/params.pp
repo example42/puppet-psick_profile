@@ -21,5 +21,4 @@ class psick_profile::oracle::params (
   $oper_group        = 'oper',
 
 ) {
-
 }

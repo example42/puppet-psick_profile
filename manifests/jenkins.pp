@@ -79,7 +79,6 @@ class psick_profile::jenkins (
   Boolean $noop_manage                       = $::psick::noop_manage,
   Boolean $noop_value                        = $::psick::noop_value,
 ) {
-
   if $manage {
     if $noop_manage {
       noop($noop_value)
@@ -111,8 +110,8 @@ class psick_profile::jenkins (
     # Installation management
     case $module {
       'psick_profile': {
-        contain ::psick::java
-        contain ::psick_profile::jenkins::install
+        contain psick::java
+        contain psick_profile::jenkins::install
         $plugins.each |$k,$v| {
           psick_profile::jenkins::plugin { $k:
             require => Package['jenkins'],
@@ -127,7 +126,7 @@ class psick_profile::jenkins (
         Tp::Conf['jenkins::init'] -> Psick_profile::Jenkins::Plugin<| |>
       }
       default: {
-        contain ::jenkins
+        contain jenkins
       }
     }
 
@@ -184,7 +183,7 @@ class psick_profile::jenkins (
     }
 
     if $scm_sync_repository_url {
-      include ::psick_profile::jenkins::scm_sync
+      include psick_profile::jenkins::scm_sync
     }
 
     # Pre-scan ssh host key of $scm_sync_repository_host and adds

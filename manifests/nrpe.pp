@@ -43,7 +43,7 @@ class psick_profile::nrpe (
       memory_critical            => '5',
     }
     #
-    $options_user=lookup('nrpe_options', Hash, 'deep', {} )
+    $options_user=lookup('nrpe_options', Hash, 'deep', {})
     $options=merge($options_default,$options_user)
 
     ::tp::install { 'nrpe':

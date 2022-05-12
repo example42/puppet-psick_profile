@@ -13,9 +13,8 @@ define psick_profile::mongo::command (
   $ensure      = 'present',
   $run_command = true,
 ) {
-
   if (!defined(File[$js_dir])) {
-    file {$js_dir:
+    file { $js_dir:
       ensure => directory,
       path   => $js_dir,
       owner  => 'root',
@@ -42,9 +41,8 @@ define psick_profile::mongo::command (
     exec { "mongo_${name}":
       command     => "mongo ${cmd_options} ${db_host}:${db_port}${db_name_suffix} ${js_dir}/${mongodb_script_user}",
       subscribe   => File[$mongodb_script_user],
-      path        => [ '/usr/bin' , '/usr/sbin' ],
+      path        => ['/usr/bin' , '/usr/sbin'],
       refreshonly => true,
     }
   }
-
 }

@@ -24,11 +24,9 @@ define psick_profile::grafana::dashboard (
   Enum['true', 'false'] $editable         = 'false',   # lint:ignore:quoted_booleans
   Hash    $options                 = {},
 ) {
-
   tp::conf { "grafana::${name}":
     content  => psick::template($template,$options),
     source   => $source,
     base_dir => 'dashboards',
   }
-
 }

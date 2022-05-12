@@ -11,7 +11,6 @@ define psick_profile::keepalived::balance (
   # If false routing for replies is expected to pass through the LB
   # (direct-responses-route)
 ) {
-
   $template = $lb_template ? {
     undef   => $lb_type ? {
       'keepalived' => 'psick_profile/keepalived/rs.conf.epp',
@@ -40,7 +39,7 @@ define psick_profile::keepalived::balance (
       'connect_timeout'    => '10',
       'retry'              => '3',
       'delay_before_retry' => '3',
-      'helo_name'          => $::fqdn,
+      'helo_name'          => $facts['networking']['fqdn'],
       'healthchecker'      => 'SMTP_CHECK',
     }
     $real_servers_defaults_misc_check = {
@@ -49,11 +48,11 @@ define psick_profile::keepalived::balance (
     }
     # General defaults
 
-    $lb_servicename = "${::zone}-${title}-${::env}-${::gen}"
+    $lb_servicename = "${::zone}-${title}-${::env}"
     $ports.each | String $port_type , Integer $port | {
       $real_servers_defaults = {
         'weight'             => '1',
-        'ip'                 => $::ipaddress,
+        'ip'                 => $facts['networking']['ip'],
         'port'               => $port,
       }
       $epp_options = {
@@ -64,7 +63,7 @@ define psick_profile::keepalived::balance (
           default => $real_servers_defaults + $real_servers_defaults_tcp_check + $lb_options,
         },
       }
-      @@concat::fragment { "${::fqdn}-${lb_servicename}-${port}_real_server":
+      @@concat::fragment { "${facts['networking']['fqdn']}-${lb_servicename}-${port}_real_server":
         target  => "/etc/keepalived/services/${lb_servicename}-${port}.conf",
         order   => '20',
         content => epp($template,$epp_options),
@@ -91,5 +90,4 @@ define psick_profile::keepalived::balance (
       sysctl_options => $lb_sysctl_settings,
     }
   }
-
 }

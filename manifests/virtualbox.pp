@@ -15,10 +15,8 @@ class psick_profile::virtualbox (
   Boolean          $noop_manage             = $::psick::noop_manage,
   Boolean          $noop_value              = $::psick::noop_value,
 ) {
-
   # We declare resources only if $manage = true
   if $manage {
-
     if $noop_manage {
       noop($noop_value)
     }

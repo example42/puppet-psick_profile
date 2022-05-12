@@ -48,10 +48,8 @@ class psick_profile::grafana (
   Boolean         $noop_value               = $::psick::noop_value,
 
 ) {
-
   # We declare resources only if $manage = true
   if $manage {
-
     if $noop_manage {
       noop($noop_value)
     }
@@ -59,7 +57,7 @@ class psick_profile::grafana (
     # Managed resources according to $module selected
     case $module {
       'psick_profile': {
-        contain ::psick_profile::grafana::install
+        contain psick_profile::grafana::install
       }
       default: {
         contain $module

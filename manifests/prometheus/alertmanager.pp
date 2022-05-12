@@ -18,7 +18,7 @@ class psick_profile::prometheus::alertmanager (
     if $noop_manage {
       noop($noop_value)
     }
-    class { '::prometheus::alertmanager':
+    class { 'prometheus::alertmanager':
       manage_user    => true,
       manage_group   => true,
       user           => 'prometheus',

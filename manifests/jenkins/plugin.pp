@@ -12,13 +12,12 @@ define psick_profile::jenkins::plugin (
   String $jenkins_service       = 'jenkins',
   Variant[Integer,String] $exec_timeout = '1200',
 ) {
-
-  include ::psick::unzip
+  include psick::unzip
   $plugins_dir = "${jenkins_dir}/plugins"
   $plugin_name = "${name}@${version}"
 
   if (!defined(File[$plugins_dir])) {
-    file { [ $plugins_dir ]:
+    file { [$plugins_dir]:
       ensure => directory,
       owner  => $jenkins_user,
       group  => $jenkins_group,
@@ -38,7 +37,7 @@ define psick_profile::jenkins::plugin (
 
   # Allow plugins that are already installed to be enabled/disabled.
   if $enable == false {
-    file { [ "${plugins_dir}/${name}.hpi.disabled", "${plugins_dir}/${name}.jpi.disabled" ]:
+    file { ["${plugins_dir}/${name}.hpi.disabled", "${plugins_dir}/${name}.jpi.disabled"]:
       ensure => present,
       owner  => $jenkins_user,
       notify => Service[$jenkins_service],
@@ -48,8 +47,8 @@ define psick_profile::jenkins::plugin (
   exec { "install_jenkins_plugins-${name}" :
     command => "./install_jenkins_plugin.sh -a -d ${plugins_dir} -u ${jenkins_url} ${plugin_name}",
     cwd     => $jenkins_dir,
-    require => [ File["${jenkins_dir}/install_jenkins_plugin.sh"], Class['psick::unzip'] ],
-    path    => [ '/usr/bin', '/usr/sbin', '/bin' , $jenkins_dir],
+    require => [File["${jenkins_dir}/install_jenkins_plugin.sh"], Class['psick::unzip']],
+    path    => ['/usr/bin', '/usr/sbin', '/bin' , $jenkins_dir],
     user    => $jenkins_user,
     unless  => "test -d ${plugins_dir}/${name}",
     notify  => Service[$jenkins_service],

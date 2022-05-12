@@ -1,6 +1,6 @@
 #
 class psick_profile::mongo::mms (
-  String                 $ensure                    = $::psick_profile::mongo::ensure,
+  String                 $ensure                    = $psick_profile::mongo::ensure,
 
   String                 $apikey                    = '',
   String                 $baseurl                   = '',
@@ -26,7 +26,7 @@ class psick_profile::mongo::mms (
       noop($noop_value)
     }
     # Options hash is shared across all the single packages setups
-    $options=lookup('psick_profile::mongo::mms::options', Hash, 'deep', { })
+    $options=lookup('psick_profile::mongo::mms::options', Hash, 'deep', {})
     $options_default = {
       'mmsApiKey'      => $apikey,
       'mmsBaseUrl'     => $baseurl,
@@ -38,10 +38,9 @@ class psick_profile::mongo::mms (
     }
     $all_options = $options_default + $options
 
-
     # monitoring_agent setup
     if $monitoring_agent_install {
-      $monitoring_agent_user_settings=lookup('psick_profile::mongo::mms::monitoring_agent_settings', Hash, 'deep', { })
+      $monitoring_agent_user_settings=lookup('psick_profile::mongo::mms::monitoring_agent_settings', Hash, 'deep', {})
       $monitoring_agent_tp_settings = tp_lookup('mongodb-mms-monitoring-agent','settings','tinydata','merge')
       $monitoring_agent_settings = $monitoring_agent_tp_settings + $monitoring_agent_user_settings
 
@@ -61,7 +60,7 @@ class psick_profile::mongo::mms (
 
     # backup_agent setup
     if $backup_agent_install {
-      $backup_agent_user_settings=lookup('psick_profile::mongo::mms::backup_agent_settings', Hash, 'deep', { })
+      $backup_agent_user_settings=lookup('psick_profile::mongo::mms::backup_agent_settings', Hash, 'deep', {})
       $backup_agent_tp_settings = tp_lookup('mongodb-mms-backup-agent','settings','tinydata','merge')
       $backup_agent_settings = $backup_agent_tp_settings + $backup_agent_user_settings
 
@@ -81,7 +80,7 @@ class psick_profile::mongo::mms (
 
     # automation_agent setup
     if $automation_agent_install {
-      $automation_agent_user_settings=lookup('psick_profile::mongo::mms::automation_agent_settings', Hash, 'deep' , { })
+      $automation_agent_user_settings=lookup('psick_profile::mongo::mms::automation_agent_settings', Hash, 'deep' , {})
       $automation_agent_tp_settings = tp_lookup('mongodb-mms-automation-agent','settings','tinydata','merge')
       $automation_agent_settings = $automation_agent_tp_settings + $automation_agent_user_settings
 
@@ -101,7 +100,7 @@ class psick_profile::mongo::mms (
 
     # master setup
     if $master_install {
-      $master_user_settings=lookup('psick_profile::mongo::mms::master_settings', Hash, 'deep', { })
+      $master_user_settings=lookup('psick_profile::mongo::mms::master_settings', Hash, 'deep', {})
       $master_tp_settings = tp_lookup('mongodb-mms','settings','tinydata','merge')
       $master_settings = $master_tp_settings + $master_user_settings
 

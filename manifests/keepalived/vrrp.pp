@@ -6,7 +6,6 @@ define psick_profile::keepalived::vrrp (
   Hash   $user_options = {},
   String $template     = 'psick_profile/keepalived/vrrp.conf.epp',
 ) {
-
   # Default state is based on zone and host_id
   $state = $::host_id ? {
     '1'    => $::zone ? {
@@ -60,5 +59,4 @@ define psick_profile::keepalived::vrrp (
       content => epp($template,$epp_options),
     }
   }
-
 }

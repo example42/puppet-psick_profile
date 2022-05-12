@@ -7,7 +7,7 @@
 # @param service_reload_command Command to execute to trigger Jenkins reload
 class psick_profile::jenkins::jcasc (
   Variant[Boolean,String] $ensure   = 'present',
-  Array $plugins                    = [ 'configuration-as-code','configuration-as-code-support' ],
+  Array $plugins                    = ['configuration-as-code','configuration-as-code-support'],
   Optional[String] $config_template = undef,
   Optional[String] $config_path     = undef,
   Hash $options_hash                = {},
@@ -32,7 +32,7 @@ class psick_profile::jenkins::jcasc (
         }
       }
     }
-    $real_config_path = pick($config_path,"${::psick_profile::jenkins::home_dir}/jenkins.yaml")
+    $real_config_path = pick($config_path,"${psick_profile::jenkins::home_dir}/jenkins.yaml")
     $options = $options_hash
     if $config_template {
       file { $real_config_path :

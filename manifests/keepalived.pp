@@ -9,19 +9,18 @@ class psick_profile::keepalived (
   Boolean                  $noop_value           = $::psick::noop_value,
 
 ) {
-
   if $manage {
     if $noop_manage {
       noop($noop_value)
     }
 
     $options_default = {
-      'notification_email_from' => "info@${::domain}",
+      'notification_email_from' => "info@${facts['networking']['domain']}",
       'smtp_server'             => 'localhost',
       'smtp_connect_timeout'    => '30',
-      'lvs_id'                  =>  $::hostname,
+      'lvs_id'                  => $facts['networking']['hostname'],
     }
-    $options_user=lookup('psick_profile::keepalived::options', Hash, 'deep' , {} )
+    $options_user=lookup('psick_profile::keepalived::options', Hash, 'deep' , {})
     $options=merge($options_default,$options_user)
     # Install package
     ::tp::install { 'keepalived':
@@ -47,7 +46,7 @@ class psick_profile::keepalived (
     # split vs to get role to find correct mapping in hieradata for the configured role-loadbalancing-variables like
     # vip, vip_mask and options
     # write File for vrrp_instance via given function
-    $virtualservers=hiera_array('virtualservers', [] )
+    $virtualservers=hiera_array('virtualservers', [])
     $virtualservers.each | String $vs | {
       $vs_split=split($vs,'-')
       $app_role=$vs_split[1]

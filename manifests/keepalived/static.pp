@@ -17,14 +17,14 @@ class psick_profile::keepalived::static (
     }
 
     $options_default = {
-      'notification_email_from' => "info@${::domain}",
+      'notification_email_from' => "info@${facts['networking']['domain']}",
       'smtp_server'             => 'localhost',
       'smtp_connect_timeout'    => '30',
-      'lvs_id'                  =>  $::hostname,
+      'lvs_id'                  => $facts['networking']['hostname'],
     }
 
-    $virtualservers=lookup('lb_virtualservers', Hash, 'deep', {} )
-    $options_user=lookup('psick_profile::keepalived::static::options', Hash, 'deep', {} )
+    $virtualservers=lookup('lb_virtualservers', Hash, 'deep', {})
+    $options_user=lookup('psick_profile::keepalived::static::options', Hash, 'deep', {})
     $options=merge($options_default,$options_user)
 
     ::tp::install { 'keepalived':

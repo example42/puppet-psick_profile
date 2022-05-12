@@ -9,7 +9,6 @@ class psick_profile::oracle::prerequisites::swap (
   String $swapfile_options                  = 'defaults',
 
 ) {
-
   mount { '/dev/shm':
     ensure  => present,
     atboot  => true,
@@ -25,5 +24,4 @@ class psick_profile::oracle::prerequisites::swap (
     add_mount    => $swapfile_mount,
     options      => $swapfile_options,
   }
-
 }

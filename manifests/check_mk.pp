@@ -16,18 +16,18 @@ class psick_profile::check_mk (
     if $noop_manage {
       noop($noop_value)
     }
-    $packages = $::osfamily ? {
-      'RedHat' => [ 'check_mk-agent' , 'check_mk-agent-logwatch' ] ,
-      'Debian' => [ 'check_mk-agent' , 'check_mk-agent-logwatch' ] ,
-      'Suse'   => [ 'check_mk-agent' , 'check_mk-agent-logwatch' , 'check_mk-plugins'],
-      'RedHat' => [ 'check_mk-agent' , 'check_mk-agent-logwatch' ,
+    $packages = $facts['os']['family'] ? {
+      'RedHat' => ['check_mk-agent' , 'check_mk-agent-logwatch'],
+      'Debian' => ['check_mk-agent' , 'check_mk-agent-logwatch'],
+      'Suse'   => ['check_mk-agent' , 'check_mk-agent-logwatch' , 'check_mk-plugins'],
+      'RedHat' => ['check_mk-agent' , 'check_mk-agent-logwatch' ,
       'check_mk-plugins'],
-      'Suse' => [ 'check_mk-agent' , 'check_mk-agent-logwatch' ,
+      'Suse' => ['check_mk-agent' , 'check_mk-agent-logwatch' ,
       'check_mk-plugins'],
       default  => [],
     }
 
-    $init_script = $::osfamily ? {
+    $init_script = $facts['os']['family'] ? {
       'Debian' => '/etc/default/cmk-passiv',
       default  => '/etc/sysconfig/cmk-passiv',
     }

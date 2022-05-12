@@ -45,7 +45,6 @@ define psick_profile::icinga2::config (
   Optional[String]         $file_notify  = 'Service["icinga2"]',
   Hash                     $options_hash = {},
 ) {
-
   $path_real=pick($path,"/etc/icinga2/${config_dir}/${title}.conf")
   file { $path_real:
     ensure  => $ensure,
@@ -56,5 +55,4 @@ define psick_profile::icinga2::config (
     source  => $source,
     notify  => $file_notify,
   }
-
 }

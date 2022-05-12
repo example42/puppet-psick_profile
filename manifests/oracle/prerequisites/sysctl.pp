@@ -22,13 +22,12 @@
 #
 class psick_profile::oracle::prerequisites::sysctl (
   Optional[String] $template = 'psick_profile/oracle/sysctl/sysctl.erb',
-  Hash $options              = { },
+  Hash $options              = {},
   Boolean $use_defaults      = true,
   Boolean $auto_tune         = false,
 ) {
-
   if $auto_tune {
-    $memsize = to_bytes($::memorysize)
+    $memsize = to_bytes($facts['memory']['system']['total'])
     $shmmax = floor(0.5 * $memsize)
     $swapsize = $shmmax
     $memlock = $shmmax

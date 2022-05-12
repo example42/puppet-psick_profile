@@ -9,7 +9,7 @@
 #
 class psick_profile::danger (
   String $ensure               = 'present',
-  Array $plugins               = [ ],
+  Array $plugins               = [],
   Boolean $use_gitlab          = false,
   Boolean $install_system_gems = false,
   Boolean $install_puppet_gems = true,
@@ -18,13 +18,12 @@ class psick_profile::danger (
   Boolean          $noop_manage          = $::psick::noop_manage,
   Boolean          $noop_value           = $::psick::noop_value,
 ) {
-
   if $manage {
     if $noop_manage {
       noop($noop_value)
     }
 
-    include ::psick::ruby
+    include psick::ruby
 
     $all_gems = $use_gitlab ? {
       true  => ['danger-gitlab'] + $plugins,

@@ -27,18 +27,17 @@ class psick_profile::oracle (
   String $prerequisites_class = '::psick_profile::oracle::prerequisites',
   String $install_class       = '',
   String $resources_class     = '',
-  Hash $instances             = { },
+  Hash $instances             = {},
 
   Boolean $manage             = $::psick::manage,
   Boolean $noop_manage        = $::psick::noop_manage,
   Boolean $noop_value         = $::psick::noop_value,
 ) {
-
   if $manage {
     if $noop_manage {
       noop($noop_value)
     }
-    contain ::psick_profile::oracle::params
+    contain psick_profile::oracle::params
 
     if $prerequisites_class != '' {
       contain $prerequisites_class

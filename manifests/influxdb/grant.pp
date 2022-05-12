@@ -43,8 +43,7 @@ define psick_profile::influxdb::grant (
   Optional[String] $server_user           = undef,
   Optional[String] $server_password       = undef,
   Hash $exec_params                       = {},
-){
-
+) {
   # Build command line arguments
   $host_param = $server_host ? {
     undef   => '',
@@ -95,5 +94,4 @@ define psick_profile::influxdb::grant (
   exec { $exec_title:
     * => $exec_default_options + $exec_params,
   }
-
 }

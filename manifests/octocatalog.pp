@@ -20,7 +20,7 @@ class psick_profile::octocatalog (
   String           $ensure       = 'present',
   Boolean          $auto_prereq  = false,
   Optional[String] $template     = undef,
-  Hash             $options      = { },
+  Hash             $options      = {},
   Optional[String] $git_repo     = undef,
   String           $git_repo_dir = '/srv/control-repo',
   String           $run_as_user  = 'root', # In CI setups set this to the CI user
@@ -29,7 +29,6 @@ class psick_profile::octocatalog (
   Boolean          $noop_manage  = $::psick::noop_manage,
   Boolean          $noop_value   = $::psick::noop_value,
 ) {
-
   if $manage {
     if $noop_manage {
       noop($noop_value)

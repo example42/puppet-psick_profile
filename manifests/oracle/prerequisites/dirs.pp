@@ -30,12 +30,11 @@ class psick_profile::oracle::prerequisites::dirs (
 
   String $base_dir = '/data/oracle',
   Hash $dirs       = {},
-  Array $suffixes  = [ '' ],
+  Array $suffixes  = [''],
   String $owner    = 'oracle',
   String $group    = 'dba',
 
 ) {
-
   if $dirs != {} {
     psick::tools::create_dir { $base_dir:
       owner => $owner,

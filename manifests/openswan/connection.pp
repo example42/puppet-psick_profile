@@ -10,7 +10,6 @@ define psick_profile::openswan::connection (
   String $template = 'psick_profile/openswan/connection.erb',
   Optional[String] $secret = undef,
 ) {
-
   $tp_default_options = {
     ensure  => $ensure,
     mode    => '0400',

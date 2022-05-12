@@ -20,7 +20,6 @@ define psick_profile::grafana::plugin (
   Optional[String] $exec_notify    = 'Service[grafana-server]',
   Optional[String] $exec_require   = 'Package[grafana]',
 ) {
-
   if $ensure == 'present' {
     exec { "grafana plugins install ${plugin}":
       command => "grafana-cli plugins install ${plugin} ${version}",

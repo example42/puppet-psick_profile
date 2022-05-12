@@ -14,20 +14,18 @@ class psick_profile::openswan (
   Boolean          $noop_manage          = $::psick::noop_manage,
   Boolean          $noop_value           = $::psick::noop_value,
 ) {
-
   # We declare resources only if $manage = true
   if $manage {
-
     if $noop_manage {
       noop($noop_value)
     }
 
     case $module {
       'psick_profile': {
-        contain ::psick_profile::openswan::install
+        contain psick_profile::openswan::install
       }
       default: {
-        contain ::openswan
+        contain openswan
       }
     }
     $connections.each |$k,$v| {

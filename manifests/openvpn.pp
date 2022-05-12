@@ -37,7 +37,6 @@ class psick_profile::openvpn (
   Boolean              $noop_value           = $::psick::noop_value,
 
 ) {
-
   if $manage {
     if $noop_manage {
       noop($noop_value)
@@ -45,7 +44,7 @@ class psick_profile::openvpn (
 
     case $module {
       'tp_profile': {
-        contain ::tp_profile::openvpn
+        contain tp_profile::openvpn
         $connections.each |$k,$v| {
           psick_profile::openvpn::connection { $k:
             * => $v,
@@ -53,7 +52,7 @@ class psick_profile::openvpn (
         }
       }
       'psick_profile': {
-        contain ::psick_profile::openvpn::install
+        contain psick_profile::openvpn::install
         $connections.each |$k,$v| {
           psick_profile::openvpn::connection { $k:
             * => $v,
@@ -71,7 +70,7 @@ class psick_profile::openvpn (
             * => $v,
           }
         }
-        contain ::openvpn
+        contain openvpn
         $ca_hash.each |$k,$v| {
           openvpn::ca { $k:
             * => $ca_defaults + $v,
