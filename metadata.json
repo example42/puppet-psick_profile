@@ -2,47 +2,53 @@
   "name": "example42-psick_profile",
   "version": "0.1.0",
   "author": "Alessandro Franceschi",
-  "summary": "",
+  "summary": "A collection of opinionated, reusable Puppet profiles for common applications",
   "license": "Apache-2.0",
-  "source": "",
+  "source": "https://github.com/example42/puppet-psick_profile",
   "dependencies": [
-
+    {
+      "name": "example42/tp",
+      "version_requirement": ">= 1.0.0 < 4.0.0"
+    },
+    {
+      "name": "example42/psick",
+      "version_requirement": ">= 0.4.0 < 2.0.0"
+    }
   ],
   "operatingsystem_support": [
     {
       "operatingsystem": "CentOS",
       "operatingsystemrelease": [
-        "7"
+        "7",
+        "8"
       ]
     },
     {
       "operatingsystem": "OracleLinux",
       "operatingsystemrelease": [
-        "7"
+        "7",
+        "8"
       ]
     },
     {
       "operatingsystem": "RedHat",
       "operatingsystemrelease": [
+        "7",
         "8"
-      ]
-    },
-    {
-      "operatingsystem": "Scientific",
-      "operatingsystemrelease": [
-        "7"
       ]
     },
     {
       "operatingsystem": "Debian",
       "operatingsystemrelease": [
+        "9",
         "10"
       ]
     },
     {
       "operatingsystem": "Ubuntu",
       "operatingsystemrelease": [
-        "18.04"
+        "18.04",
+        "20.04"
       ]
     },
     {
@@ -62,10 +68,10 @@
   "requirements": [
     {
       "name": "puppet",
-      "version_requirement": ">= 6.21.0 < 8.0.0"
+      "version_requirement": ">= 6.21.0 < 9.0.0"
     }
   ],
-  "pdk-version": "2.3.0",
-  "template-url": "pdk-default#2.3.0",
-  "template-ref": "tags/2.3.0-0-g8aaceff"
+  "pdk-version": "2.4.0",
+  "template-url": "https://github.com/puppetlabs/pdk-templates#main",
+  "template-ref": "tags/2.5.0-0-g806810b"
 }

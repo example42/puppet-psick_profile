@@ -1,0 +1,2 @@
+---
+psick_profile::icingaweb2::php_fpm_name: 'rh-php71-php-fpm'
