@@ -15,4 +15,5 @@ fixtures:
     "yumrepo": "https://github.com/puppetlabs/puppetlabs-yumrepo_core"
     "chocolatey": "https://github.com/puppetlabs/puppetlabs-chocolatey"
     "homebrew": "https://github.com/michaelw/puppet-homebrew"
-  repos:
+  forge_modules:
+    "vagrant": 'unibet-vagrant'

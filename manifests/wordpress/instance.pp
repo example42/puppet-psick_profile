@@ -108,7 +108,7 @@ define psick_profile::wordpress::instance (
 
     exec { "chown -R ${web_server_user}:${web_server_group} ${web_base_dir}/wordpress-${title}":
       command => "chown -R ${web_server_user}:${web_server_group} ${web_base_dir}/wordpress-${title}",
-      onlyif  => "test $(/usr/bin/find ${web_base_dir}/wordpress-${title} ! -user ${web_server_user} -o ! -group ${web_server_group} | wc -l) -gt 0",
+      onlyif  => "test $(/usr/bin/find ${web_base_dir}/wordpress-${title} ! -user ${web_server_user} -o ! -group ${web_server_group} | wc -l) -gt 0", # lint:ignore:140chars
       path    => '/bin:/sbin:/usr/bin:/usr/sbin',
       require => Exec["mv ${web_base_dir}/wordpress ${web_base_dir}/wordpress-${title}"],
     }
