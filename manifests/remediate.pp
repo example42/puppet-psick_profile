@@ -51,10 +51,10 @@ class psick_profile::remediate (
     }
 
     if $auto_prereq {
-      include psick::docker
-      include psick::docker::compose
-      Class['psick::docker']
-      -> Class['psick::docker::compose']
+      include psick_profile::docker
+      include psick_profile::docker::compose
+      Class['psick_profile::docker']
+      -> Class['psick_profile::docker::compose']
       -> Exec['docker swarm init remediate']
       -> Exec['docker-compose run remediate']
     }

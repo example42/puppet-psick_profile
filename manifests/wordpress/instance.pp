@@ -157,7 +157,7 @@ define psick_profile::wordpress::instance (
   }
 
   if $db_manage {
-    psick::mariadb::grant { "wordpress-${title}":
+    psick_profile::mariadb::grant { "wordpress-${title}":
       user       => $db_user,
       password   => $db_password,
       db         => $db_name,

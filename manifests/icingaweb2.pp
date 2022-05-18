@@ -39,8 +39,8 @@ class psick_profile::icingaweb2 (
   Boolean                $auto_prereq     = $::psick::auto_prereq,
   Hash                $icingaweb2_params = {},
 
-  Optional[String]       $webserver_class = '::psick::apache::install',
-  Optional[String]       $dbserver_class  = '::psick::mariadb::install',
+  Optional[String]       $webserver_class = '::psick_profile::apache::install',
+  Optional[String]       $dbserver_class  = '::psick_profile::mariadb::install',
   Optional[String]       $template        = undef,
   Hash                   $options         = {},
   Hash                   $tp_conf_hash    = {},
@@ -303,7 +303,7 @@ class psick_profile::icingaweb2 (
     if $db_manage {
       case $db_backend {
         'mariadb': {
-          psick::mariadb::grant { 'icingaweb2':
+          psick_profile::mariadb::grant { 'icingaweb2':
             user       => $db_settings['user'],
             password   => $db_settings['password'],
             db         => $db_settings['database'],
@@ -314,7 +314,7 @@ class psick_profile::icingaweb2 (
           }
         }
         'mysql': {
-          psick::mysql::grant { 'icingaweb2':
+          psick_profile::mysql::grant { 'icingaweb2':
             user       => $db_settings['user'],
             password   => $db_settings['password'],
             db         => $db_settings['database'],
@@ -339,7 +339,7 @@ class psick_profile::icingaweb2 (
     if $director_db_manage and $director_module_manage {
       case $director_db_backend {
         'mariadb': {
-          psick::mariadb::grant { 'director_icingaweb2':
+          psick_profile::mariadb::grant { 'director_icingaweb2':
             user       => $director_db_settings['user'],
             password   => $director_db_settings['password'],
             db         => $director_db_settings['database'],
@@ -350,7 +350,7 @@ class psick_profile::icingaweb2 (
           }
         }
         'mysql': {
-          psick::mysql::grant { 'director_icingaweb2':
+          psick_profile::mysql::grant { 'director_icingaweb2':
             user       => $director_db_settings['user'],
             password   => $director_db_settings['password'],
             db         => $director_db_settings['database'],

@@ -195,7 +195,7 @@ class psick_profile::icinga2 (
     if $ido_manage and $is_server {
       case $ido_backend {
         'mysql': {
-          psick::mysql::grant { 'icinga2':
+          psick_profile::mysql::grant { 'icinga2':
             user       => $ido_settings['user'],
             password   => $ido_settings['password'],
             db         => $ido_settings['database'],
@@ -212,7 +212,7 @@ class psick_profile::icinga2 (
           }
         }
         'mariadb': {
-          psick::mariadb::grant { 'icinga2':
+          psick_profile::mariadb::grant { 'icinga2':
             user       => $ido_settings['user'],
             password   => $ido_settings['password'],
             db         => $ido_settings['database'],
