@@ -18,7 +18,7 @@ define psick_profile::mysql::query (
     ensure  => file,
     mode    => '0600',
     path    => "${query_filepath}/mysqlquery-${name}.sql",
-    content => template('psick/mysql/query.erb'),
+    content => template('psick_profile/mysql/query.erb'),
   }
 
   $exec_flagfile = "${query_filepath}/mysqlquery-${name}.sql.done"

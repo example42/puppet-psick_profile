@@ -75,8 +75,8 @@ define psick_profile::mysql::grant (
   }
 
   $grant_template = $ensure ? {
-    'absent' => 'psick/mysql/revoke.erb',
-    default  => 'psick/mysql/grant.erb',
+    'absent' => 'psick_profile/mysql/revoke.erb',
+    default  => 'psick_profile/mysql/grant.erb',
   }
 
   # If dbname has a wildcard, we don't want to create anything

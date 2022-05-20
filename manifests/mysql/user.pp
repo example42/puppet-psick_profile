@@ -23,7 +23,7 @@ define psick_profile::mysql::user (
     ensure  => file,
     mode    => '0600',
     path    => "${grant_filepath}/${grant_file}",
-    content => template('psick/mysql/user.erb'),
+    content => template('psick_profile/mysql/user.erb'),
   }
 
   if getvar('psick_profile::mysql::root_password') {

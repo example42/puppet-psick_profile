@@ -2,7 +2,7 @@
 class psick_profile::gitlab::ci (
   String                $ensure           = 'present',
   String                $config_file_path = '/etc/gitlab-ci.conf',
-  Variant[Undef,String] $template         = 'psick/gitlab/runner/ci.conf.erb',
+  Variant[Undef,String] $template         = 'psick_profile/gitlab/runner/ci.conf.erb',
   Hash                  $options          = {},
   Array                 $default_nodes    = [],
   Array                 $always_nodes     = [],

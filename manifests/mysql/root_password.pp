@@ -4,7 +4,7 @@
 # Set mysql root password
 #
 class psick_profile::mysql::root_password (
-  String $root_cnf_template = 'psick/mysql/root.my.cnf.erb',
+  String $root_cnf_template = 'psick_profile/mysql/root.my.cnf.erb',
   Optional[Psick::Password] $password = $psick_profile::mysql::root_password,
   Boolean $manage                     = $psick::manage,
   Boolean $auto_prereq                = $psick::auto_prereq,
@@ -28,7 +28,7 @@ class psick_profile::mysql::root_password (
       ensure  => 'file',
       path    => '/root/.my.cnf.backup',
       mode    => '0400',
-      content => template('psick/mysql/root.my.cnf.backup.erb'),
+      content => template('psick_profile/mysql/root.my.cnf.backup.erb'),
       replace => false,
       before  => [Exec['mysql_root_password'],
       Exec['mysql_backup_root_my_cnf']],

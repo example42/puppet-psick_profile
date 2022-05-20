@@ -23,7 +23,7 @@ define psick_profile::mariadb::user (
     ensure  => file,
     mode    => '0600',
     path    => "${grant_filepath}/${grant_file}",
-    content => template('psick/mariadb/user.erb'),
+    content => template('psick_profile/mariadb/user.erb'),
   }
 
   if getvar('psick_profile::mariadb::root_password') {

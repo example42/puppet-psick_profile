@@ -12,7 +12,7 @@
 class psick_profile::gitlab::proxy (
   String                $ensure      = 'present',
   Boolean               $auto_prereq = false,
-  Optional[String]      $template    = 'psick/gitlab/proxy/nginx_gitlab_proxy.conf.erb',
+  Optional[String]      $template    = 'psick_profile/gitlab/proxy/nginx_gitlab_proxy.conf.erb',
   Hash                  $options     = {},
   String                $server_name = $facts['networking']['fqdn'],
   String                $proxy_pass  = "https://gitlab.${facts['networking']['domain']}:443",

@@ -20,7 +20,7 @@
 class psick_profile::gitlab::cli (
   String           $ensure      = 'present',
   Boolean          $auto_prereq = $psick::auto_prereq,
-  Optional[String] $epp         = 'psick/gitlab/cli/gitlab-cli.conf.epp',
+  Optional[String] $epp         = 'psick_profile/gitlab/cli/gitlab-cli.conf.epp',
   Hash             $config_hash = {},
   Hash   $multirepo_config_hash = {},
 
@@ -69,14 +69,14 @@ class psick_profile::gitlab::cli (
       }
       file { '/usr/local/bin/gitlab_create_merge_request.rb':
         ensure => $ensure,
-        source => 'puppet:///modules/psick/gitlab/cli/gitlab_create_merge_request.rb',
+        source => 'puppet:///modules/psick_profile/gitlab/cli/gitlab_create_merge_request.rb',
         mode   => $scripts_mode,
         owner  => $scripts_owner,
         group  => $scripts_group,
       }
       file { '/usr/local/bin/gitlab_accept_merge_request.rb':
         ensure => $ensure,
-        source => 'puppet:///modules/psick/gitlab/cli/gitlab_accept_merge_request.rb',
+        source => 'puppet:///modules/psick_profile/gitlab/cli/gitlab_accept_merge_request.rb',
         mode   => $scripts_mode,
         owner  => $scripts_owner,
         group  => $scripts_group,
@@ -92,14 +92,14 @@ class psick_profile::gitlab::cli (
       }
       file { '/usr/local/bin/gitlab_multirepo_create_merge_request.rb':
         ensure => $ensure,
-        source => 'puppet:///modules/psick/gitlab/cli/gitlab_multirepo_create_merge_request.rb',
+        source => 'puppet:///modules/psick_profile/gitlab/cli/gitlab_multirepo_create_merge_request.rb',
         mode   => $scripts_mode,
         owner  => $scripts_owner,
         group  => $scripts_group,
       }
       file { '/usr/local/bin/gitlab_multirepo_accept_merge_request.rb':
         ensure => $ensure,
-        source => 'puppet:///modules/psick/gitlab/cli/gitlab_multirepo_accept_merge_request.rb',
+        source => 'puppet:///modules/psick_profile/gitlab/cli/gitlab_multirepo_accept_merge_request.rb',
         mode   => $scripts_mode,
         owner  => $scripts_owner,
         group  => $scripts_group,

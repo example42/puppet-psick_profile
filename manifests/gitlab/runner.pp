@@ -20,7 +20,7 @@ class psick_profile::gitlab::runner (
   Optional[String] $template          = undef,
   Hash             $options           = {},
   Hash             $runners           = {},
-  String           $sudo_template     = 'psick/gitlab/runner/sudo.erb',
+  String           $sudo_template     = 'psick_profile/gitlab/runner/sudo.erb',
   Optional[String] $pe_user           = undef,
   Optional[String] $pe_password       = undef,
   Optional[String] $runner_user       = 'gitlab-runner',

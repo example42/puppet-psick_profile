@@ -8,7 +8,7 @@ describe 'psick_profile::rundeck' do
       let(:pre_condition) { 'include psick' }
       let(:facts) { os_facts }
 
-      it { is_expected.to compile }
+      it { is_expected.to compile.with_all_deps }
     end
   end
 end

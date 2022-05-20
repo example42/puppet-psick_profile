@@ -6,7 +6,7 @@ describe 'psick_profile::icingaweb2' do
       let(:facts) { os_facts }
       let(:pre_condition) { 'include psick ; tp::install { epel: } ; include psick_profile::icinga2' }
 
-      it { is_expected.to compile }
+      it { is_expected.to compile.with_all_deps }
     end
   end
 end

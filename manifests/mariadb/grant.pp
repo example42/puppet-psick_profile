@@ -75,8 +75,8 @@ define psick_profile::mariadb::grant (
   }
 
   $grant_template = $ensure ? {
-    'absent' => 'psick/mariadb/revoke.erb',
-    default  => 'psick/mariadb/grant.erb',
+    'absent' => 'psick_profile/mariadb/revoke.erb',
+    default  => 'psick_profile/mariadb/grant.erb',
   }
 
   # If dbname has a wildcard, we don't want to create anything

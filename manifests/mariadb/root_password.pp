@@ -4,7 +4,7 @@
 # Set mariadb root password
 #
 class psick_profile::mariadb::root_password (
-  String $root_cnf_template = 'psick/mariadb/root.my.cnf.erb',
+  String $root_cnf_template = 'psick_profile/mariadb/root.my.cnf.erb',
   Optional[Psick::Password] $password = $psick_profile::mariadb::root_password,
   Boolean $manage             = $psick::manage,
   Boolean $noop_manage        = $psick::noop_manage,
@@ -27,7 +27,7 @@ class psick_profile::mariadb::root_password (
       ensure  => 'file',
       path    => '/root/.my.cnf.backup',
       mode    => '0400',
-      content => template('psick/mariadb/root.my.cnf.backup.erb'),
+      content => template('psick_profile/mariadb/root.my.cnf.backup.erb'),
       replace => false,
       before  => [Exec['mariadb_root_password'],
       Exec['mariadb_backup_root_my_cnf']],

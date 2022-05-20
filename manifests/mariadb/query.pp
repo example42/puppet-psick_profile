@@ -18,7 +18,7 @@ define psick_profile::mariadb::query (
     ensure  => file,
     mode    => '0600',
     path    => "${query_filepath}/mariadbquery-${name}.sql",
-    content => template('psick/mariadb/query.erb'),
+    content => template('psick_profile/mariadb/query.erb'),
     notify  => Exec["mariadbquery-${name}"],
   }
 
