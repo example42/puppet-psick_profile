@@ -208,7 +208,7 @@ class psick_profile::icinga2 (
             password      => $ido_settings['password'],
             database      => $ido_settings['database'],
             import_schema => true,
-            require       => Psick::Mysql::Grant['icinga2'],
+            require       => Psick_profile::Mysql::Grant['icinga2'],
           }
         }
         'mariadb': {
@@ -225,7 +225,7 @@ class psick_profile::icinga2 (
             password      => $ido_settings['password'],
             database      => $ido_settings['database'],
             import_schema => true,
-            require       => Psick::Mariadb::Grant['icinga2'],
+            require       => Psick_profile::Mariadb::Grant['icinga2'],
           }
         }
         'pgsql': {

@@ -103,8 +103,8 @@ class psick_profile::icingaweb2 (
     }
     if $dbserver_class and $dbserver_class != '' {
       contain $dbserver_class
-      Class[$dbserver_class] -> Psick::Mariadb::Grant<||>
-      Class[$dbserver_class] -> Psick::Mysql::Grant<||>
+      Class[$dbserver_class] -> Psick_profile::Mariadb::Grant<||>
+      Class[$dbserver_class] -> Psick_profile::Mysql::Grant<||>
     }
 
     case $module {

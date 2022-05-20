@@ -142,12 +142,12 @@ class psick_profile::puppetserver (
         before  => Tp::Dir['puppet::control-repo'],
       }
       tp::dir { 'puppet::control-repo':
-        path              => '/etc/puppetlabs/code/environments/production',
-        vcsrepo           => 'git',
-        source            => $git_remote_repo,
+        path               => '/etc/puppetlabs/code/environments/production',
+        vcsrepo            => 'git',
+        source             => $git_remote_repo,
         config_dir_notify  => false,
         config_dir_require => false,
-        notify            => Exec['r10k puppetfile install'],
+        notify             => Exec['r10k puppetfile install'],
       }
       exec { 'r10k puppetfile install':
         command     => 'r10k puppetfile install',
