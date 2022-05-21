@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe 'psick_profile::nginx' do
+describe 'psick_profile::nginx::tp' do
   on_supported_os.each do |os, os_facts|
     context "on #{os}" do
       let(:facts) { os_facts }

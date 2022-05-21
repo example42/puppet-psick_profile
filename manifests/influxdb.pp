@@ -57,7 +57,7 @@ class psick_profile::influxdb (
     # Managed resources according to $module selected
     case $module {
       'tp_profile': {
-        contain psick_profile::influxdb::install
+        contain psick_profile::influxdb::tp
         #$users_hash.each | $k,$v | {
         #  psick_profile::influxdb::users { $k:
         #    * => $v,

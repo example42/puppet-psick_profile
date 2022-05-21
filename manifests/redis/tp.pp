@@ -1,87 +1,87 @@
-# psick_profile::openvpn::install
+# psick_profile::redis::tp
 #
-# @summary This class manages openvpn with Tiny Puppet (tp)
+# @summary This tp profile manages redis with Tiny Puppet (tp)
 #
 # When you include this class the relevant tp::install define is declared
-# which is expected to install openvpn package and manage its service.
+# which is expected to install redis package and manage its service.
 # Via the resources_hash parameter is possible to pass hashes of tp::conf and
-# tp::dir defines which can manage openvpn configuration files and
+# tp::dir defines which can manage redis configuration files and
 # whole dirs.
 # All the parameters ending with the _hash suffix expect and Hash and are looked
 # up on Hiera via the deep merge lookup option.
 #
-# @example Just include it to install openvpn
-#   include psick_profile::openvpn::install
+# @example Just include it to install redis
+#   include psick_profile::redis::tp
 #
 # @example Include via psick module classification (yaml)
 #   psick::profiles::linux_classes:
-#     openvpn: psick_profile::openvpn::install
+#     redis: psick_profile::redis::tp
 #
 # @example To use upstream repos instead of OS defaults (if tinydata available) as packages source:
-#   psick_profile::openvpn::install::upstream_repo: true
+#   psick_profile::redis::tp::upstream_repo: true
 #
 # @example Manage extra configs via hiera (yaml) with templates based on custom options
-#   psick_profile::openvpn::install::ensure: present
-#   psick_profile::openvpn::install::resources:
+#   psick_profile::redis::tp::ensure: present
+#   psick_profile::redis::tp::resources:
 #     tp::conf:
-#       openvpn:
-#         epp: profile/openvpn/openvpn.conf.epp
-#       openvpn::dot.conf:
-#         epp: profile/openvpn/dot.conf.epp
+#       redis:
+#         epp: profile/redis/redis.conf.epp
+#       redis::dot.conf:
+#         epp: profile/redis/dot.conf.epp
 #         base_dir: conf
 #     exec:
-#       openvpn::setup:
-#         command: '/usr/local/bin/openvpn_setup'
-#         creates: '/opt/openvpn'
-#   psick_profile::openvpn::install::options:
+#       redis::setup:
+#         command: '/usr/local/bin/redis_setup'
+#         creates: '/opt/redis'
+#   psick_profile::redis::tp::options:
 #     key: value
 #
 # @example Enable default auto configuration, if configurations are available
 #   for the underlying system and the given auto_conf value, they are
 #   automatically added.
-#   psick_profile::openvpn::install::auto_conf: true
+#   psick_profile::redis::tp::auto_conf: true
 #
 # @param manage If to actually manage any resource in this profile or not.
-# @param ensure If to install or remove openvpn. Valid values are present, absent, latest
-#   or any version string, matching the expected openvpn package version.
-# @param upstream_repo If to use openvpn upstream repos as source for packages
+# @param ensure If to install or remove redis. Valid values are present, absent, latest
+#   or any version string, matching the expected redis package version.
+# @param upstream_repo If to use redis upstream repos as source for packages
 #   or rely on default packages from the underlying OS.
 #
 # @param install_hash An hash of valid params to pass to tp::install defines. Useful to
 #   manage specific params that are not automatically defined.
 # @param options An open hash of options to use in the templates referenced
 #   in the tp::conf entries of the $resources_hash.
-# @param settings_hash An hash of tp settings to override default openvpn file
+# @param settings_hash An hash of tp settings to override default redis file
 #   paths, package names, repo info and whatever tinydata that matches Tp::Settings data type:
 #   https://github.com/example42/puppet-tp/blob/master/types/settings.pp.
 #
-# @param auto_conf If to enable automatic configuration of openvpn based on the
+# @param auto_conf If to enable automatic configuration of redis based on the
 #   resources_auto_conf_hash and options_auto_conf_hash parameters, if present in
-#   data/common/openvpn.yaml. You can both override them in your Hiera files
+#   data/common/redis.yaml. You can both override them in your Hiera files
 #   and merge them with your resources and options.
 # @param resources_auto_conf_hash The default resources hash if auto_conf is true.
 #   The final resources managed are the ones specified here and in $resources.
-#   Check psick_profile::openvpn::install::resources_auto_conf_hash in
-#   data/common/openvpn.yaml for the auto_conf defaults.
+#   Check psick_profile::redis::tp::resources_auto_conf_hash in
+#   data/common/redis.yaml for the auto_conf defaults.
 # @param options_auto_conf_hash The default options hash if auto_conf is set.
-#   Check psick_profile::openvpn::install::options_auto_conf_hash in
-#   data/common/openvpn.yaml for the auto_conf defaults.
+#   Check psick_profile::redis::tp::options_auto_conf_hash in
+#   data/common/redis.yaml for the auto_conf defaults.
 #
 # @param resources An hash of any resource, like tp::conf, tp::dir, exec or whatever
-#   to declare for openvpn confiuration. Can also come from a third-party
-#   component modules with dedicated openvpn resources.
+#   to declare for redis confiuration. Can also come from a third-party
+#   component modules with dedicated redis resources.
 #   tp::conf params: https://github.com/example42/puppet-tp/blob/master/manifests/conf.pp
 #   tp::dir params: https://github.com/example42/puppet-tp/blob/master/manifests/dir.pp
 #   any other Puppet resource type, with relevant params can be actually used
 #   The Hiera lookup method used for this parameter is defined with the $resource_lookup_method
 #   parameter.
-# @param resource_lookup_method What lookup method to use for psick_profile::openvpn::install::resources
+# @param resource_lookup_method What lookup method to use for psick_profile::redis::tp::resources
 # @param resources_defaults An Hash of resources with their default params, to be merged with
 #   $resources.
 #
-# @param auto_prereq If to automatically install eventual dependencies for openvpn.
+# @param auto_prereq If to automatically install eventual dependencies for redis.
 #   Set to false if you have problems with duplicated resources, being sure that you
-#   manage the prerequistes to install openvpn (other packages, repos or tp installs).
+#   manage the prerequistes to install redis (other packages, repos or tp installs).
 #
 # @param noop_manage If to manage noop mode via the noop() function for the resources of
 #   this class. This must be true for noop_value to have effect.
@@ -90,8 +90,8 @@
 #   When false, no-noop in enforced on all the class' resources and overrides any other noop
 #   setting (also from clients' puppet.conf
 #
-class psick_profile::openvpn::install (
-  Psick::Ensure      $ensure                   = 'present',
+class psick_profile::redis::tp (
+  Psick::Ensure $ensure                   = 'present',
   Boolean            $manage                   = true,
   Optional[Boolean]  $upstream_repo            = undef,
 
@@ -116,7 +116,7 @@ class psick_profile::openvpn::install (
   Boolean            $noop_manage              = false,
   Boolean            $noop_value               = false,
 ) {
-  $options=lookup('psick_profile::openvpn::install::options', Hash, $options_lookup_method, {})
+  $options=lookup('psick_profile::redis::tp::options', Hash, $options_lookup_method, {})
 
   if $manage {
     if $noop_manage {
@@ -135,7 +135,7 @@ class psick_profile::openvpn::install (
       auto_prereq   => $auto_prereq,
       upstream_repo => $upstream_repo,
     }
-    tp::install { 'openvpn':
+    tp::install { 'redis':
       * => $install_defaults + $install_hash,
     }
 
@@ -148,8 +148,8 @@ class psick_profile::openvpn::install (
       default  => 'directory',
     }
 
-    # Declaration of psick_profile::openvpn::install::resources
-    $resources=lookup('psick_profile::openvpn::install::resources', Hash, $resources_lookup_method, {})
+    # Declaration of psick_profile::redis::tp::resources
+    $resources=lookup('psick_profile::redis::tp::resources', Hash, $resources_lookup_method, {})
     $resources.each |String $resource_type, Hash $content| {
       $resources_all = $auto_conf ? {
         true  => pick($resources_auto_conf_hash[$resource_type], {}) + pick($resources[$resource_type], {}),

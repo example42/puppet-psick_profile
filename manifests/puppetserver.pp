@@ -33,8 +33,8 @@ class psick_profile::puppetserver (
         contain tp_profile::puppetserver
       }
       'psick': {
-        $puppetserver_class = 'psick_profile::puppetserver::install'
-        contain psick_profile::puppetserver::install
+        $puppetserver_class = 'psick_profile::puppetserver::tp'
+        contain psick_profile::puppetserver::tp
       }
       'puppetserver': {
         $puppetserver_class = 'puppetserver'

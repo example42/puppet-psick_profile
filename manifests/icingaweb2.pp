@@ -39,8 +39,8 @@ class psick_profile::icingaweb2 (
   Boolean                $auto_prereq     = $::psick::auto_prereq,
   Hash                $icingaweb2_params = {},
 
-  Optional[String]       $webserver_class = '::psick_profile::apache::install',
-  Optional[String]       $dbserver_class  = '::psick_profile::mariadb::install',
+  Optional[String]       $webserver_class = '::psick_profile::apache::tp',
+  Optional[String]       $dbserver_class  = '::psick_profile::mariadb::tp',
   Optional[String]       $template        = undef,
   Hash                   $options         = {},
   Hash                   $tp_conf_hash    = {},

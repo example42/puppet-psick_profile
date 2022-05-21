@@ -1,4 +1,4 @@
-# psick_profile::docker::install
+# psick_profile::docker::tp
 #
 # @summary This tp profile manages docker with Tiny Puppet (tp)
 #
@@ -11,18 +11,18 @@
 # up on Hiera via the deep merge lookup option.
 #
 # @example Just include it to install docker
-#   include psick_profile::docker::install
+#   include psick_profile::docker::tp
 #
 # @example Include via psick module classification (yaml)
 #   psick::profiles::linux_classes:
-#     docker: psick_profile::docker::install
+#     docker: psick_profile::docker::tp
 #
 # @example To use upstream repos instead of OS defaults (if tinydata available) as packages source:
-#   psick_profile::docker::install::upstream_repo: true
+#   psick_profile::docker::tp::upstream_repo: true
 #
 # @example Manage extra configs via hiera (yaml) with templates based on custom options
-#   psick_profile::docker::install::ensure: present
-#   psick_profile::docker::install::resources:
+#   psick_profile::docker::tp::ensure: present
+#   psick_profile::docker::tp::resources:
 #     tp::conf:
 #       docker:
 #         epp: profile/docker/docker.conf.epp
@@ -33,13 +33,13 @@
 #       docker::setup:
 #         command: '/usr/local/bin/docker_setup'
 #         creates: '/opt/docker'
-#   psick_profile::docker::install::options:
+#   psick_profile::docker::tp::options:
 #     key: value
 #
 # @example Enable default auto configuration, if configurations are available
 #   for the underlying system and the given auto_conf value, they are
 #   automatically added.
-#   psick_profile::docker::install::auto_conf: true
+#   psick_profile::docker::tp::auto_conf: true
 #
 # @param manage If to actually manage any resource in this profile or not.
 # @param ensure If to install or remove docker. Valid values are present, absent, latest
@@ -61,10 +61,10 @@
 #   and merge them with your resources and options.
 # @param resources_auto_conf_hash The default resources hash if auto_conf is true.
 #   The final resources managed are the ones specified here and in $resources.
-#   Check psick_profile::docker::install::resources_auto_conf_hash in
+#   Check psick_profile::docker::tp::resources_auto_conf_hash in
 #   data/common/docker.yaml for the auto_conf defaults.
 # @param options_auto_conf_hash The default options hash if auto_conf is set.
-#   Check psick_profile::docker::install::options_auto_conf_hash in
+#   Check psick_profile::docker::tp::options_auto_conf_hash in
 #   data/common/docker.yaml for the auto_conf defaults.
 #
 # @param resources An hash of any resource, like tp::conf, tp::dir, exec or whatever
@@ -75,7 +75,7 @@
 #   any other Puppet resource type, with relevant params can be actually used
 #   The Hiera lookup method used for this parameter is defined with the $resource_lookup_method
 #   parameter.
-# @param resource_lookup_method What lookup method to use for psick_profile::docker::install::resources
+# @param resource_lookup_method What lookup method to use for psick_profile::docker::tp::resources
 # @param resources_defaults An Hash of resources with their default params, to be merged with
 #   $resources.
 #
@@ -90,7 +90,7 @@
 #   When false, no-noop in enforced on all the class' resources and overrides any other noop
 #   setting (also from clients' puppet.conf
 #
-class psick_profile::docker::install (
+class psick_profile::docker::tp (
   Psick::Ensure $ensure                   = 'present',
   Boolean            $manage                   = true,
   Optional[Boolean]  $upstream_repo            = undef,
@@ -116,7 +116,7 @@ class psick_profile::docker::install (
   Boolean            $noop_manage              = false,
   Boolean            $noop_value               = false,
 ) {
-  $options=lookup('psick_profile::docker::install::options', Hash, $options_lookup_method, {})
+  $options=lookup('psick_profile::docker::tp::options', Hash, $options_lookup_method, {})
 
   if $manage {
     if $noop_manage {
@@ -148,8 +148,8 @@ class psick_profile::docker::install (
       default  => 'directory',
     }
 
-    # Declaration of psick_profile::docker::install::resources
-    $resources=lookup('psick_profile::docker::install::resources', Hash, $resources_lookup_method, {})
+    # Declaration of psick_profile::docker::tp::resources
+    $resources=lookup('psick_profile::docker::tp::resources', Hash, $resources_lookup_method, {})
     $resources.each |String $resource_type, Hash $content| {
       $resources_all = $auto_conf ? {
         true  => pick($resources_auto_conf_hash[$resource_type], {}) + pick($resources[$resource_type], {}),

@@ -111,7 +111,7 @@ class psick_profile::jenkins (
     case $module {
       'psick_profile': {
         contain psick::java
-        contain psick_profile::jenkins::install
+        contain psick_profile::jenkins::tp
         $plugins.each |$k,$v| {
           psick_profile::jenkins::plugin { $k:
             require => Package['jenkins'],

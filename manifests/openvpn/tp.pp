@@ -1,87 +1,87 @@
-# psick_profile::puppetserver::install
+# psick_profile::openvpn::tp
 #
-# @summary This tp profile manages puppetserver with Tiny Puppet (tp)
+# @summary This class manages openvpn with Tiny Puppet (tp)
 #
 # When you include this class the relevant tp::install define is declared
-# which is expected to install puppetserver package and manage its service.
+# which is expected to install openvpn package and manage its service.
 # Via the resources_hash parameter is possible to pass hashes of tp::conf and
-# tp::dir defines which can manage puppetserver configuration files and
+# tp::dir defines which can manage openvpn configuration files and
 # whole dirs.
 # All the parameters ending with the _hash suffix expect and Hash and are looked
 # up on Hiera via the deep merge lookup option.
 #
-# @example Just include it to install puppetserver
-#   include psick_profile::puppetserver::install
+# @example Just include it to install openvpn
+#   include psick_profile::openvpn::tp
 #
 # @example Include via psick module classification (yaml)
 #   psick::profiles::linux_classes:
-#     puppetserver: psick_profile::puppetserver::install
+#     openvpn: psick_profile::openvpn::tp
 #
 # @example To use upstream repos instead of OS defaults (if tinydata available) as packages source:
-#   psick_profile::puppetserver::install::upstream_repo: true
+#   psick_profile::openvpn::tp::upstream_repo: true
 #
 # @example Manage extra configs via hiera (yaml) with templates based on custom options
-#   psick_profile::puppetserver::install::ensure: present
-#   psick_profile::puppetserver::install::resources:
+#   psick_profile::openvpn::tp::ensure: present
+#   psick_profile::openvpn::tp::resources:
 #     tp::conf:
-#       puppetserver:
-#         epp: profile/puppetserver/puppetserver.conf.epp
-#       puppetserver::dot.conf:
-#         epp: profile/puppetserver/dot.conf.epp
+#       openvpn:
+#         epp: profile/openvpn/openvpn.conf.epp
+#       openvpn::dot.conf:
+#         epp: profile/openvpn/dot.conf.epp
 #         base_dir: conf
 #     exec:
-#       puppetserver::setup:
-#         command: '/usr/local/bin/puppetserver_setup'
-#         creates: '/opt/puppetserver'
-#   psick_profile::puppetserver::install::options:
+#       openvpn::setup:
+#         command: '/usr/local/bin/openvpn_setup'
+#         creates: '/opt/openvpn'
+#   psick_profile::openvpn::tp::options:
 #     key: value
 #
 # @example Enable default auto configuration, if configurations are available
 #   for the underlying system and the given auto_conf value, they are
 #   automatically added.
-#   psick_profile::puppetserver::install::auto_conf: true
+#   psick_profile::openvpn::tp::auto_conf: true
 #
 # @param manage If to actually manage any resource in this profile or not.
-# @param ensure If to install or remove puppetserver. Valid values are present, absent, latest
-#   or any version string, matching the expected puppetserver package version.
-# @param upstream_repo If to use puppetserver upstream repos as source for packages
+# @param ensure If to install or remove openvpn. Valid values are present, absent, latest
+#   or any version string, matching the expected openvpn package version.
+# @param upstream_repo If to use openvpn upstream repos as source for packages
 #   or rely on default packages from the underlying OS.
 #
 # @param install_hash An hash of valid params to pass to tp::install defines. Useful to
 #   manage specific params that are not automatically defined.
 # @param options An open hash of options to use in the templates referenced
 #   in the tp::conf entries of the $resources_hash.
-# @param settings_hash An hash of tp settings to override default puppetserver file
+# @param settings_hash An hash of tp settings to override default openvpn file
 #   paths, package names, repo info and whatever tinydata that matches Tp::Settings data type:
 #   https://github.com/example42/puppet-tp/blob/master/types/settings.pp.
 #
-# @param auto_conf If to enable automatic configuration of puppetserver based on the
+# @param auto_conf If to enable automatic configuration of openvpn based on the
 #   resources_auto_conf_hash and options_auto_conf_hash parameters, if present in
-#   data/common/puppetserver.yaml. You can both override them in your Hiera files
+#   data/common/openvpn.yaml. You can both override them in your Hiera files
 #   and merge them with your resources and options.
 # @param resources_auto_conf_hash The default resources hash if auto_conf is true.
 #   The final resources managed are the ones specified here and in $resources.
-#   Check psick_profile::puppetserver::install::resources_auto_conf_hash in
-#   data/common/puppetserver.yaml for the auto_conf defaults.
+#   Check psick_profile::openvpn::tp::resources_auto_conf_hash in
+#   data/common/openvpn.yaml for the auto_conf defaults.
 # @param options_auto_conf_hash The default options hash if auto_conf is set.
-#   Check psick_profile::puppetserver::install::options_auto_conf_hash in
-#   data/common/puppetserver.yaml for the auto_conf defaults.
+#   Check psick_profile::openvpn::tp::options_auto_conf_hash in
+#   data/common/openvpn.yaml for the auto_conf defaults.
 #
 # @param resources An hash of any resource, like tp::conf, tp::dir, exec or whatever
-#   to declare for puppetserver confiuration. Can also come from a third-party
-#   component modules with dedicated puppetserver resources.
+#   to declare for openvpn confiuration. Can also come from a third-party
+#   component modules with dedicated openvpn resources.
 #   tp::conf params: https://github.com/example42/puppet-tp/blob/master/manifests/conf.pp
 #   tp::dir params: https://github.com/example42/puppet-tp/blob/master/manifests/dir.pp
 #   any other Puppet resource type, with relevant params can be actually used
 #   The Hiera lookup method used for this parameter is defined with the $resource_lookup_method
 #   parameter.
-# @param resource_lookup_method What lookup method to use for psick_profile::puppetserver::install::resources
+# @param resource_lookup_method What lookup method to use for psick_profile::openvpn::tp::resources
 # @param resources_defaults An Hash of resources with their default params, to be merged with
 #   $resources.
 #
-# @param auto_prereq If to automatically install eventual dependencies for puppetserver.
+# @param auto_prereq If to automatically install eventual dependencies for openvpn.
 #   Set to false if you have problems with duplicated resources, being sure that you
-#   manage the prerequistes to install puppetserver (other packages, repos or tp installs).
+#   manage the prerequistes to install openvpn (other packages, repos or tp installs).
 #
 # @param noop_manage If to manage noop mode via the noop() function for the resources of
 #   this class. This must be true for noop_value to have effect.
@@ -90,7 +90,7 @@
 #   When false, no-noop in enforced on all the class' resources and overrides any other noop
 #   setting (also from clients' puppet.conf
 #
-class psick_profile::puppetserver::install (
+class psick_profile::openvpn::tp (
   Psick::Ensure      $ensure                   = 'present',
   Boolean            $manage                   = true,
   Optional[Boolean]  $upstream_repo            = undef,
@@ -116,7 +116,7 @@ class psick_profile::puppetserver::install (
   Boolean            $noop_manage              = false,
   Boolean            $noop_value               = false,
 ) {
-  $options=lookup('psick_profile::puppetserver::install::options', Hash, $options_lookup_method, {})
+  $options=lookup('psick_profile::openvpn::tp::options', Hash, $options_lookup_method, {})
 
   if $manage {
     if $noop_manage {
@@ -135,7 +135,7 @@ class psick_profile::puppetserver::install (
       auto_prereq   => $auto_prereq,
       upstream_repo => $upstream_repo,
     }
-    tp::install { 'puppetserver':
+    tp::install { 'openvpn':
       * => $install_defaults + $install_hash,
     }
 
@@ -148,8 +148,8 @@ class psick_profile::puppetserver::install (
       default  => 'directory',
     }
 
-    # Declaration of psick_profile::puppetserver::install::resources
-    $resources=lookup('psick_profile::puppetserver::install::resources', Hash, $resources_lookup_method, {})
+    # Declaration of psick_profile::openvpn::tp::resources
+    $resources=lookup('psick_profile::openvpn::tp::resources', Hash, $resources_lookup_method, {})
     $resources.each |String $resource_type, Hash $content| {
       $resources_all = $auto_conf ? {
         true  => pick($resources_auto_conf_hash[$resource_type], {}) + pick($resources[$resource_type], {}),

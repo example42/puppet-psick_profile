@@ -1,87 +1,87 @@
-# psick_profile::apache::install
+# psick_profile::nginx::tp
 #
-# @summary This class manages apache with Tiny Puppet (tp)
+# @summary This tp profile manages nginx with Tiny Puppet (tp)
 #
 # When you include this class the relevant tp::install define is declared
-# which is expected to install apache package and manage its service.
+# which is expected to install nginx package and manage its service.
 # Via the resources_hash parameter is possible to pass hashes of tp::conf and
-# tp::dir defines which can manage apache configuration files and
+# tp::dir defines which can manage nginx configuration files and
 # whole dirs.
 # All the parameters ending with the _hash suffix expect and Hash and are looked
 # up on Hiera via the deep merge lookup option.
 #
-# @example Just include it to install apache
-#   include psick_profile::apache::install
+# @example Just include it to install nginx
+#   include psick_profile::nginx::tp
 #
 # @example Include via psick module classification (yaml)
 #   psick::profiles::linux_classes:
-#     apache: psick_profile::apache::install
+#     nginx: psick_profile::nginx::tp
 #
 # @example To use upstream repos instead of OS defaults (if tinydata available) as packages source:
-#   psick_profile::apache::install::upstream_repo: true
+#   psick_profile::nginx::tp::upstream_repo: true
 #
 # @example Manage extra configs via hiera (yaml) with templates based on custom options
-#   psick_profile::apache::install::ensure: present
-#   psick_profile::apache::install::resources:
+#   psick_profile::nginx::tp::ensure: present
+#   psick_profile::nginx::tp::resources:
 #     tp::conf:
-#       apache:
-#         epp: profile/apache/apache.conf.epp
-#       apache::dot.conf:
-#         epp: profile/apache/dot.conf.epp
+#       nginx:
+#         epp: profile/nginx/nginx.conf.epp
+#       nginx::dot.conf:
+#         epp: profile/nginx/dot.conf.epp
 #         base_dir: conf
 #     exec:
-#       apache::setup:
-#         command: '/usr/local/bin/apache_setup'
-#         creates: '/opt/apache'
-#   psick_profile::apache::install::options:
+#       nginx::setup:
+#         command: '/usr/local/bin/nginx_setup'
+#         creates: '/opt/nginx'
+#   psick_profile::nginx::tp::options:
 #     key: value
 #
 # @example Enable default auto configuration, if configurations are available
 #   for the underlying system and the given auto_conf value, they are
 #   automatically added.
-#   psick_profile::apache::install::auto_conf: true
+#   psick_profile::nginx::tp::auto_conf: true
 #
 # @param manage If to actually manage any resource in this profile or not.
-# @param ensure If to install or remove apache. Valid values are present, absent, latest
-#   or any version string, matching the expected apache package version.
-# @param upstream_repo If to use apache upstream repos as source for packages
+# @param ensure If to install or remove nginx. Valid values are present, absent, latest
+#   or any version string, matching the expected nginx package version.
+# @param upstream_repo If to use nginx upstream repos as source for packages
 #   or rely on default packages from the underlying OS.
 #
 # @param install_hash An hash of valid params to pass to tp::install defines. Useful to
 #   manage specific params that are not automatically defined.
 # @param options An open hash of options to use in the templates referenced
 #   in the tp::conf entries of the $resources_hash.
-# @param settings_hash An hash of tp settings to override default apache file
+# @param settings_hash An hash of tp settings to override default nginx file
 #   paths, package names, repo info and whatever tinydata that matches Tp::Settings data type:
 #   https://github.com/example42/puppet-tp/blob/master/types/settings.pp.
 #
-# @param auto_conf If to enable automatic configuration of apache based on the
+# @param auto_conf If to enable automatic configuration of nginx based on the
 #   resources_auto_conf_hash and options_auto_conf_hash parameters, if present in
-#   data/common/apache.yaml. You can both override them in your Hiera files
+#   data/common/nginx.yaml. You can both override them in your Hiera files
 #   and merge them with your resources and options.
 # @param resources_auto_conf_hash The default resources hash if auto_conf is true.
 #   The final resources managed are the ones specified here and in $resources.
-#   Check psick_profile::apache::install::resources_auto_conf_hash in
-#   data/common/apache.yaml for the auto_conf defaults.
+#   Check psick_profile::nginx::tp::resources_auto_conf_hash in
+#   data/common/nginx.yaml for the auto_conf defaults.
 # @param options_auto_conf_hash The default options hash if auto_conf is set.
-#   Check psick_profile::apache::install::options_auto_conf_hash in
-#   data/common/apache.yaml for the auto_conf defaults.
+#   Check psick_profile::nginx::tp::options_auto_conf_hash in
+#   data/common/nginx.yaml for the auto_conf defaults.
 #
 # @param resources An hash of any resource, like tp::conf, tp::dir, exec or whatever
-#   to declare for apache confiuration. Can also come from a third-party
-#   component modules with dedicated apache resources.
+#   to declare for nginx confiuration. Can also come from a third-party
+#   component modules with dedicated nginx resources.
 #   tp::conf params: https://github.com/example42/puppet-tp/blob/master/manifests/conf.pp
 #   tp::dir params: https://github.com/example42/puppet-tp/blob/master/manifests/dir.pp
 #   any other Puppet resource type, with relevant params can be actually used
 #   The Hiera lookup method used for this parameter is defined with the $resource_lookup_method
 #   parameter.
-# @param resource_lookup_method What lookup method to use for psick_profile::apache::install::resources
+# @param resource_lookup_method What lookup method to use for psick_profile::nginx::tp::resources
 # @param resources_defaults An Hash of resources with their default params, to be merged with
 #   $resources.
 #
-# @param auto_prereq If to automatically install eventual dependencies for apache.
+# @param auto_prereq If to automatically install eventual dependencies for nginx.
 #   Set to false if you have problems with duplicated resources, being sure that you
-#   manage the prerequistes to install apache (other packages, repos or tp installs).
+#   manage the prerequistes to install nginx (other packages, repos or tp installs).
 #
 # @param noop_manage If to manage noop mode via the noop() function for the resources of
 #   this class. This must be true for noop_value to have effect.
@@ -90,8 +90,8 @@
 #   When false, no-noop in enforced on all the class' resources and overrides any other noop
 #   setting (also from clients' puppet.conf
 #
-class psick_profile::apache::install (
-  Psick::Ensure $ensure                   = 'present',
+class psick_profile::nginx::tp (
+  Psick::Ensure      $ensure                   = 'present',
   Boolean            $manage                   = true,
   Optional[Boolean]  $upstream_repo            = undef,
 
@@ -116,7 +116,7 @@ class psick_profile::apache::install (
   Boolean            $noop_manage              = false,
   Boolean            $noop_value               = false,
 ) {
-  $options=lookup('psick_profile::apache::install::options', Hash, $options_lookup_method, {})
+  $options=lookup('psick_profile::nginx::tp::options', Hash, $options_lookup_method, {})
 
   if $manage {
     if $noop_manage {
@@ -135,7 +135,7 @@ class psick_profile::apache::install (
       auto_prereq   => $auto_prereq,
       upstream_repo => $upstream_repo,
     }
-    tp::install { 'apache':
+    tp::install { 'nginx':
       * => $install_defaults + $install_hash,
     }
 
@@ -148,8 +148,8 @@ class psick_profile::apache::install (
       default  => 'directory',
     }
 
-    # Declaration of psick_profile::apache::install::resources
-    $resources=lookup('psick_profile::apache::install::resources', Hash, $resources_lookup_method, {})
+    # Declaration of psick_profile::nginx::tp::resources
+    $resources=lookup('psick_profile::nginx::tp::resources', Hash, $resources_lookup_method, {})
     $resources.each |String $resource_type, Hash $content| {
       $resources_all = $auto_conf ? {
         true  => pick($resources_auto_conf_hash[$resource_type], {}) + pick($resources[$resource_type], {}),

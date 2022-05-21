@@ -25,7 +25,7 @@ class psick_profile::mariadb (
     # Intallation management
     case $module {
       'psick': {
-        contain psick_profile::mariadb::install
+        contain psick_profile::mariadb::tp
         contain psick_profile::mariadb::root_password
         $user_hash.each |$k,$v| {
           psick_profile::mariadb::user { $k:

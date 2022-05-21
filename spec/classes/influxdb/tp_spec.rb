@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe 'psick_profile::puppetserver::install' do
+describe 'psick_profile::influxdb::tp' do
   on_supported_os.each do |os, os_facts|
     context "on #{os}" do
       let(:facts) { os_facts }

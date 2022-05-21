@@ -1,87 +1,87 @@
-# psick_profile::influxdb::install
+# psick_profile::mariadb::tp
 #
-# @summary This tp profile manages influxdb with Tiny Puppet (tp)
+# @summary This class manages mariadb with Tiny Puppet (tp)
 #
 # When you include this class the relevant tp::install define is declared
-# which is expected to install influxdb package and manage its service.
+# which is expected to install mariadb package and manage its service.
 # Via the resources_hash parameter is possible to pass hashes of tp::conf and
-# tp::dir defines which can manage influxdb configuration files and
+# tp::dir defines which can manage mariadb configuration files and
 # whole dirs.
 # All the parameters ending with the _hash suffix expect and Hash and are looked
 # up on Hiera via the deep merge lookup option.
 #
-# @example Just include it to install influxdb
-#   include psick_profile::influxdb::install
+# @example Just include it to install mariadb
+#   include psick_profile::mariadb::tp
 #
 # @example Include via psick module classification (yaml)
 #   psick::profiles::linux_classes:
-#     influxdb: psick_profile::influxdb::install
+#     mariadb: psick_profile::mariadb::tp
 #
 # @example To use upstream repos instead of OS defaults (if tinydata available) as packages source:
-#   psick_profile::influxdb::install::upstream_repo: true
+#   psick_profile::mariadb::tp::upstream_repo: true
 #
 # @example Manage extra configs via hiera (yaml) with templates based on custom options
-#   psick_profile::influxdb::install::ensure: present
-#   psick_profile::influxdb::install::resources:
+#   psick_profile::mariadb::tp::ensure: present
+#   psick_profile::mariadb::tp::resources:
 #     tp::conf:
-#       influxdb:
-#         epp: profile/influxdb/influxdb.conf.epp
-#       influxdb::dot.conf:
-#         epp: profile/influxdb/dot.conf.epp
+#       mariadb:
+#         epp: profile/mariadb/mariadb.conf.epp
+#       mariadb::dot.conf:
+#         epp: profile/mariadb/dot.conf.epp
 #         base_dir: conf
 #     exec:
-#       influxdb::setup:
-#         command: '/usr/local/bin/influxdb_setup'
-#         creates: '/opt/influxdb'
-#   psick_profile::influxdb::install::options:
+#       mariadb::setup:
+#         command: '/usr/local/bin/mariadb_setup'
+#         creates: '/opt/mariadb'
+#   psick_profile::mariadb::tp::options:
 #     key: value
 #
 # @example Enable default auto configuration, if configurations are available
 #   for the underlying system and the given auto_conf value, they are
 #   automatically added.
-#   psick_profile::influxdb::install::auto_conf: true
+#   psick_profile::mariadb::tp::auto_conf: true
 #
 # @param manage If to actually manage any resource in this profile or not.
-# @param ensure If to install or remove influxdb. Valid values are present, absent, latest
-#   or any version string, matching the expected influxdb package version.
-# @param upstream_repo If to use influxdb upstream repos as source for packages
+# @param ensure If to install or remove mariadb. Valid values are present, absent, latest
+#   or any version string, matching the expected mariadb package version.
+# @param upstream_repo If to use mariadb upstream repos as source for packages
 #   or rely on default packages from the underlying OS.
 #
 # @param install_hash An hash of valid params to pass to tp::install defines. Useful to
 #   manage specific params that are not automatically defined.
 # @param options An open hash of options to use in the templates referenced
 #   in the tp::conf entries of the $resources_hash.
-# @param settings_hash An hash of tp settings to override default influxdb file
+# @param settings_hash An hash of tp settings to override default mariadb file
 #   paths, package names, repo info and whatever tinydata that matches Tp::Settings data type:
 #   https://github.com/example42/puppet-tp/blob/master/types/settings.pp.
 #
-# @param auto_conf If to enable automatic configuration of influxdb based on the
+# @param auto_conf If to enable automatic configuration of mariadb based on the
 #   resources_auto_conf_hash and options_auto_conf_hash parameters, if present in
-#   data/common/influxdb.yaml. You can both override them in your Hiera files
+#   data/common/mariadb.yaml. You can both override them in your Hiera files
 #   and merge them with your resources and options.
 # @param resources_auto_conf_hash The default resources hash if auto_conf is true.
 #   The final resources managed are the ones specified here and in $resources.
-#   Check psick_profile::influxdb::install::resources_auto_conf_hash in
-#   data/common/influxdb.yaml for the auto_conf defaults.
+#   Check psick_profile::mariadb::tp::resources_auto_conf_hash in
+#   data/common/mariadb.yaml for the auto_conf defaults.
 # @param options_auto_conf_hash The default options hash if auto_conf is set.
-#   Check psick_profile::influxdb::install::options_auto_conf_hash in
-#   data/common/influxdb.yaml for the auto_conf defaults.
+#   Check psick_profile::mariadb::tp::options_auto_conf_hash in
+#   data/common/mariadb.yaml for the auto_conf defaults.
 #
 # @param resources An hash of any resource, like tp::conf, tp::dir, exec or whatever
-#   to declare for influxdb confiuration. Can also come from a third-party
-#   component modules with dedicated influxdb resources.
+#   to declare for mariadb confiuration. Can also come from a third-party
+#   component modules with dedicated mariadb resources.
 #   tp::conf params: https://github.com/example42/puppet-tp/blob/master/manifests/conf.pp
 #   tp::dir params: https://github.com/example42/puppet-tp/blob/master/manifests/dir.pp
 #   any other Puppet resource type, with relevant params can be actually used
 #   The Hiera lookup method used for this parameter is defined with the $resource_lookup_method
 #   parameter.
-# @param resource_lookup_method What lookup method to use for psick_profile::influxdb::install::resources
+# @param resource_lookup_method What lookup method to use for psick_profile::mariadb::tp::resources
 # @param resources_defaults An Hash of resources with their default params, to be merged with
 #   $resources.
 #
-# @param auto_prereq If to automatically install eventual dependencies for influxdb.
+# @param auto_prereq If to automatically install eventual dependencies for mariadb.
 #   Set to false if you have problems with duplicated resources, being sure that you
-#   manage the prerequistes to install influxdb (other packages, repos or tp installs).
+#   manage the prerequistes to install mariadb (other packages, repos or tp installs).
 #
 # @param noop_manage If to manage noop mode via the noop() function for the resources of
 #   this class. This must be true for noop_value to have effect.
@@ -90,7 +90,7 @@
 #   When false, no-noop in enforced on all the class' resources and overrides any other noop
 #   setting (also from clients' puppet.conf
 #
-class psick_profile::influxdb::install (
+class psick_profile::mariadb::tp (
   Psick::Ensure $ensure                   = 'present',
   Boolean            $manage                   = true,
   Optional[Boolean]  $upstream_repo            = undef,
@@ -116,7 +116,7 @@ class psick_profile::influxdb::install (
   Boolean            $noop_manage              = false,
   Boolean            $noop_value               = false,
 ) {
-  $options=lookup('psick_profile::influxdb::install::options', Hash, $options_lookup_method, {})
+  $options=lookup('psick_profile::mariadb::tp::options', Hash, $options_lookup_method, {})
 
   if $manage {
     if $noop_manage {
@@ -135,7 +135,7 @@ class psick_profile::influxdb::install (
       auto_prereq   => $auto_prereq,
       upstream_repo => $upstream_repo,
     }
-    tp::install { 'influxdb':
+    tp::install { 'mariadb':
       * => $install_defaults + $install_hash,
     }
 
@@ -148,8 +148,8 @@ class psick_profile::influxdb::install (
       default  => 'directory',
     }
 
-    # Declaration of psick_profile::influxdb::install::resources
-    $resources=lookup('psick_profile::influxdb::install::resources', Hash, $resources_lookup_method, {})
+    # Declaration of psick_profile::mariadb::tp::resources
+    $resources=lookup('psick_profile::mariadb::tp::resources', Hash, $resources_lookup_method, {})
     $resources.each |String $resource_type, Hash $content| {
       $resources_all = $auto_conf ? {
         true  => pick($resources_auto_conf_hash[$resource_type], {}) + pick($resources[$resource_type], {}),

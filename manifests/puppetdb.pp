@@ -1,7 +1,7 @@
 # @class puppetdb
 #
 class psick_profile::puppetdb (
-  Optional[String]           $puppetdb_class   = 'psick_profile::puppetdb::install',
+  Optional[String]           $puppetdb_class   = 'psick_profile::puppetdb::tp',
   Optional[String]           $postgresql_class = undef,
 
   Boolean          $manage               = $psick::manage,

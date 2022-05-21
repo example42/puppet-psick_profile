@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe 'psick_profile::foreman' do
+describe 'psick_profile::foreman::tp' do
   on_supported_os.each do |os, os_facts|
     context "on #{os}" do
       let(:pre_condition) { 'include psick' }

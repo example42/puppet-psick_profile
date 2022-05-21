@@ -86,9 +86,9 @@ define psick_profile::docker::rocker_build (
     true  => false,
     false => true,
   }
-  $exec_require = $psick_profile::docker::install_class ? {
+  $exec_require = $psick_profile::docker::tp_class ? {
     ''      => undef,
-    default => Class[$psick_profile::docker::install_class],
+    default => Class[$psick_profile::docker::tp_class],
   }
   exec { "bash -c rocker build ${title}":
     command     => "rocker build ${build_options}",

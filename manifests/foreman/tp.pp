@@ -1,87 +1,87 @@
-# psick_profile::postgresql
+# psick_profile::foreman::tp
 #
-# @summary This tp profile manages postgresql with Tiny Puppet (tp)
+# @summary This tp profile manages foreman with Tiny Puppet (tp)
 #
 # When you include this class the relevant tp::install define is declared
-# which is expected to install postgresql package and manage its service.
+# which is expected to install foreman package and manage its service.
 # Via the resources_hash parameter is possible to pass hashes of tp::conf and
-# tp::dir defines which can manage postgresql configuration files and
+# tp::dir defines which can manage foreman configuration files and
 # whole dirs.
 # All the parameters ending with the _hash suffix expect and Hash and are looked
 # up on Hiera via the deep merge lookup option.
 #
-# @example Just include it to install postgresql
-#   include psick_profile::postgresql
+# @example Just include it to install foreman
+#   include psick_profile::foreman::tp
 #
 # @example Include via psick module classification (yaml)
 #   psick::profiles::linux_classes:
-#     postgresql: psick_profile::postgresql
+#     foreman: psick_profile::foreman::tp
 #
 # @example To use upstream repos instead of OS defaults (if tinydata available) as packages source:
-#   psick_profile::postgresql::upstream_repo: true
+#   psick_profile::foreman::tp::upstream_repo: true
 #
 # @example Manage extra configs via hiera (yaml) with templates based on custom options
-#   psick_profile::postgresql::ensure: present
-#   psick_profile::postgresql::resources:
+#   psick_profile::foreman::tp::ensure: present
+#   psick_profile::foreman::tp::resources:
 #     tp::conf:
-#       postgresql:
-#         epp: profile/postgresql/postgresql.conf.epp
-#       postgresql::dot.conf:
-#         epp: profile/postgresql/dot.conf.epp
+#       foreman:
+#         epp: profile/foreman/foreman.conf.epp
+#       foreman::dot.conf:
+#         epp: profile/foreman/dot.conf.epp
 #         base_dir: conf
 #     exec:
-#       postgresql::setup:
-#         command: '/usr/local/bin/postgresql_setup'
-#         creates: '/opt/postgresql'
-#   psick_profile::postgresql::options:
+#       foreman::setup:
+#         command: '/usr/local/bin/foreman_setup'
+#         creates: '/opt/foreman'
+#   psick_profile::foreman::tp::options:
 #     key: value
 #
 # @example Enable default auto configuration, if configurations are available
 #   for the underlying system and the given auto_conf value, they are
 #   automatically added.
-#   psick_profile::postgresql::auto_conf: true
+#   psick_profile::foreman::tp::auto_conf: true
 #
 # @param manage If to actually manage any resource in this profile or not.
-# @param ensure If to install or remove postgresql. Valid values are present, absent, latest
-#   or any version string, matching the expected postgresql package version.
-# @param upstream_repo If to use postgresql upstream repos as source for packages
+# @param ensure If to install or remove foreman. Valid values are present, absent, latest
+#   or any version string, matching the expected foreman package version.
+# @param upstream_repo If to use foreman upstream repos as source for packages
 #   or rely on default packages from the underlying OS.
 #
 # @param install_hash An hash of valid params to pass to tp::install defines. Useful to
 #   manage specific params that are not automatically defined.
 # @param options An open hash of options to use in the templates referenced
 #   in the tp::conf entries of the $resources_hash.
-# @param settings_hash An hash of tp settings to override default postgresql file
+# @param settings_hash An hash of tp settings to override default foreman file
 #   paths, package names, repo info and whatever tinydata that matches Tp::Settings data type:
 #   https://github.com/example42/puppet-tp/blob/master/types/settings.pp.
 #
-# @param auto_conf If to enable automatic configuration of postgresql based on the
+# @param auto_conf If to enable automatic configuration of foreman based on the
 #   resources_auto_conf_hash and options_auto_conf_hash parameters, if present in
-#   data/common/postgresql.yaml. You can both override them in your Hiera files
+#   data/common/foreman.yaml. You can both override them in your Hiera files
 #   and merge them with your resources and options.
 # @param resources_auto_conf_hash The default resources hash if auto_conf is true.
 #   The final resources managed are the ones specified here and in $resources.
-#   Check psick_profile::postgresql::resources_auto_conf_hash in
-#   data/common/postgresql.yaml for the auto_conf defaults.
+#   Check psick_profile::foreman::tp::resources_auto_conf_hash in
+#   data/common/foreman.yaml for the auto_conf defaults.
 # @param options_auto_conf_hash The default options hash if auto_conf is set.
-#   Check psick_profile::postgresql::options_auto_conf_hash in
-#   data/common/postgresql.yaml for the auto_conf defaults.
+#   Check psick_profile::foreman::tp::options_auto_conf_hash in
+#   data/common/foreman.yaml for the auto_conf defaults.
 #
 # @param resources An hash of any resource, like tp::conf, tp::dir, exec or whatever
-#   to declare for postgresql confiuration. Can also come from a third-party
-#   component modules with dedicated postgresql resources.
+#   to declare for foreman confiuration. Can also come from a third-party
+#   component modules with dedicated foreman resources.
 #   tp::conf params: https://github.com/example42/puppet-tp/blob/master/manifests/conf.pp
 #   tp::dir params: https://github.com/example42/puppet-tp/blob/master/manifests/dir.pp
 #   any other Puppet resource type, with relevant params can be actually used
 #   The Hiera lookup method used for this parameter is defined with the $resource_lookup_method
 #   parameter.
-# @param resource_lookup_method What lookup method to use for psick_profile::postgresql::resources
+# @param resource_lookup_method What lookup method to use for psick_profile::foreman::tp::resources
 # @param resources_defaults An Hash of resources with their default params, to be merged with
 #   $resources.
 #
-# @param auto_prereq If to automatically install eventual dependencies for postgresql.
+# @param auto_prereq If to automatically install eventual dependencies for foreman.
 #   Set to false if you have problems with duplicated resources, being sure that you
-#   manage the prerequistes to install postgresql (other packages, repos or tp installs).
+#   manage the prerequistes to install foreman (other packages, repos or tp installs).
 #
 # @param noop_manage If to manage noop mode via the noop() function for the resources of
 #   this class. This must be true for noop_value to have effect.
@@ -90,8 +90,8 @@
 #   When false, no-noop in enforced on all the class' resources and overrides any other noop
 #   setting (also from clients' puppet.conf
 #
-class psick_profile::postgresql (
-  Psick::Ensure $ensure                   = 'present',
+class psick_profile::foreman::tp (
+  Psick::Ensure      $ensure                   = 'present',
   Boolean            $manage                   = true,
   Optional[Boolean]  $upstream_repo            = undef,
 
@@ -116,7 +116,7 @@ class psick_profile::postgresql (
   Boolean            $noop_manage              = false,
   Boolean            $noop_value               = false,
 ) {
-  $options=lookup('psick_profile::postgresql::options', Hash, $options_lookup_method, {})
+  $options=lookup('psick_profile::foreman::tp::options', Hash, $options_lookup_method, {})
 
   if $manage {
     if $noop_manage {
@@ -135,7 +135,7 @@ class psick_profile::postgresql (
       auto_prereq   => $auto_prereq,
       upstream_repo => $upstream_repo,
     }
-    tp::install { 'postgresql':
+    tp::install { 'foreman':
       * => $install_defaults + $install_hash,
     }
 
@@ -148,8 +148,8 @@ class psick_profile::postgresql (
       default  => 'directory',
     }
 
-    # Declaration of psick_profile::postgresql::resources
-    $resources=lookup('psick_profile::postgresql::resources', Hash, $resources_lookup_method, {})
+    # Declaration of psick_profile::foreman::tp::resources
+    $resources=lookup('psick_profile::foreman::tp::resources', Hash, $resources_lookup_method, {})
     $resources.each |String $resource_type, Hash $content| {
       $resources_all = $auto_conf ? {
         true  => pick($resources_auto_conf_hash[$resource_type], {}) + pick($resources[$resource_type], {}),
