@@ -11,7 +11,7 @@ fixtures:
     "tinydata": "https://github.com/example42/tinydata"
     "oradb": "https://github.com/biemond/biemond-oradb"
     "icinga2": "https://github.com/icinga/puppet-icinga2"
-    "icingaeb2": "https://github.com/icinga/puppet-icingaweb2"
+    "icingaweb2": "https://github.com/icinga/puppet-icingaweb2"
     "yumrepo": "https://github.com/puppetlabs/puppetlabs-yumrepo_core"
     "chocolatey": "https://github.com/puppetlabs/puppetlabs-chocolatey"
     "homebrew": "https://github.com/michaelw/puppet-homebrew"

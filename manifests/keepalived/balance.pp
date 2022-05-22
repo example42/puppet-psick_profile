@@ -8,6 +8,9 @@ define psick_profile::keepalived::balance (
   Optional[String] $lb_template = undef,
   String $lb_type  = 'keepalived',
   Boolean $direct_response = false,
+  String $zone         = pick($psick_profile::keepalived::zone,'default'),
+  String $env         = pick($psick_profile::keepalived::env,'production'),
+
   # If false routing for replies is expected to pass through the LB
   # (direct-responses-route)
 ) {
@@ -48,7 +51,7 @@ define psick_profile::keepalived::balance (
     }
     # General defaults
 
-    $lb_servicename = "${::zone}-${title}-${::env}"
+    $lb_servicename = "${zone}-${title}-${env}"
     $ports.each | String $port_type , Integer $port | {
       $real_servers_defaults = {
         'weight'             => '1',
@@ -67,7 +70,7 @@ define psick_profile::keepalived::balance (
         target  => "/etc/keepalived/services/${lb_servicename}-${port}.conf",
         order   => '20',
         content => epp($template,$epp_options),
-        tag     => "lb_${::zone}-${::env}",
+        tag     => "lb_${zone}-${env}",
       }
     }
   } # end KeepAlived/LVS

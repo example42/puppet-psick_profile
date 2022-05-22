@@ -8,7 +8,13 @@ describe 'psick_profile::jenkins' do
       let(:pre_condition) { 'include psick' }
       let(:facts) { os_facts }
 
-      it { is_expected.to compile.with_all_deps }
+      if os.include?('windows')
+        it { is_expected.to compile.and_raise_error(/.*/) }
+      elsif os.include?('darwin')
+          it { is_expected.to compile.and_raise_error(/.*/) }
+      else
+        it { is_expected.to compile.with_all_deps }
+      end
     end
   end
 end

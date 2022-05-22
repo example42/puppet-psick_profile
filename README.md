@@ -5,7 +5,7 @@
 
 This module provides a collection of reusable profiles for common applications.
 
-For most of the profiles is not needed a component module.
+For most of the profiles is not needed a dedicated component module.
 
 Prerequites for this module are example42's tp and psick modules.
 
@@ -27,12 +27,10 @@ Prerequites for this module are example42's tp and psick modules.
 ## Description
 
 This module manages plenty of different profiles for many common applications.
-You can cherry pick which ones to use and make it cohexist with your own profiles
+You can cherry pick which ones to use and make them cohexist with your own profiles
 or with component modules.
 
-For documentation on the specific application profiles refere to the relevant doc pages, when present:
-
--   [psick_profile::oracle](docs/oracle.md) - Manage Oracle prerequisites and installation
+For documentation on the specific application profiles refere to the relevant [docs](docs/) pages or directly in the code comments, when present.
 
 ## Setup
 
@@ -42,21 +40,36 @@ You need to classify also the psick class from the psick module (which by defaul
 specific Hiera data it does nothing) in order to leverage on the general variables
 set in the main psick class and used in the psick modules.
 
+In short in you manifests/site.pp or wherever you classify your nodes you need to:
+
+    include psick
+
+and then include/classify the psick profiles you want, for example:
+
+    include psick_profile::gitlab
+    include psick_profile::grafana
+
+
 ### What psick_profile affects
 
 Every psick profile manages the relevant application.
 
-In some cases you have the option if to use an external component module to install it
+In some cases you have the option to decide if to use an external component module to install it
 or use Tiny Puppet.
 
-Refere to each profile documentation for more info on the managed resources.
+Refer to each profile documentation for more info on the managed resources.
+
+The classes when an application is installed using Tiny Puppet are always called tp and are placed in manifests called tp.pp
+
+For example the class `psick_profile::jenkins::tp`, defined under `manifests/jenkins/tp.pp` manages with installation of Jenkins via Tiny Puppet and is, by defauly, included from the main `psick_profile::jenkins` class.
+
 
 ### Setup Requirements
 
 Psick_profile module requires:
 
 -   example42-psick module
--   example42-tp module (which need the example42-tinydata module)
+-   example42-tp module (which needs the example42-tinydata module)
 
 The above, of course, need stdlib, which you probably are already using:
 
@@ -73,14 +86,6 @@ Some profiles might require an additional component modules.
 
 Refer to [Puppetfile](docs/Puppetfile) in the docs dir for the complete reference of needed modules, in Puppetfile format.
 
-The minimal needs, for Linux nodes are as follows:
-
-mod 'example42-tp', latest
-mod 'example42-tinydata', latest
-mod 'example42-psick', latest
-mod 'puppetlabs-stdlib', latest
-
-Too many? Well this module and the above are probably enough to configure 90% of what you need to manage with Puppet ;-)
 
 ### Beginning with psick_profile
 
@@ -119,6 +124,7 @@ An then manage everything via Hiera (refer to psick documentation for details), 
       mail: psick_profile::postfix
       icinga: psick_profile::icinga2
       monitor_plugins: psick_profile::nagiosplugins
+      tp: tp
 
     # Psick based classification for Windows nodes
     psick::pre::windows_classes:
@@ -137,7 +143,7 @@ An then manage everything via Hiera (refer to psick documentation for details), 
     psick::base::darwin_classes:
       tp: tp
 
-Note that each of the above Hiera keys (looked up in Deep merge mode) allows you to classify classes for different OSes (Linxu, Windows, MacOS) in different stages, applied in order (pre, base, profile).
+Note that each of the above Hiera keys (looked up in Deep merge mode) allows you to classify classes for different OSes (Linux, Windows, MacOS) in different stages, applied in order (pre, base, profile).
 
 The value of each Hiera key is an hash of key values: the keys can be any string and you can use to override the classes to include at different Hiera levels.
 The values are simply the classes to classify: they can be your own profiles, a componenent module class, a profile from the psick module or a profile from this module.

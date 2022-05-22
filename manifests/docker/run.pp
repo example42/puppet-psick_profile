@@ -114,10 +114,16 @@ define psick_profile::docker::run (
         $service_provider = undef
       }
       default: {
-        fail('Unknow init system check $::psick_profile::docker::module_settings[init_system]')
+        fail("Unknow init system check $::psick_profile::docker::module_settings[init_system]")
       }
     }
 
+    $file_ensure = $ensure ? {
+      'absent'  => 'absent',
+      false     => 'absent',
+      'stopped' => 'absent',
+      default   => 'present',
+    }
     file { $initscript_file_path:
       ensure  => $ensure,
       content => template(pick($init_template,$default_template)),

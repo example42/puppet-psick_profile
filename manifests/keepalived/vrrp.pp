@@ -5,16 +5,17 @@ define psick_profile::keepalived::vrrp (
   String $vip_mask     = '', # Possible values like '/24'
   Hash   $user_options = {},
   String $template     = 'psick_profile/keepalived/vrrp.conf.epp',
+  String $zone         = pick($psick_profile::keepalived::zone,'default'),
 ) {
   # Default state is based on zone and host_id
   $state = $::host_id ? {
-    '1'    => $::zone ? {
+    '1'    => $zone ? {
       'doi'    => 'MASTER',
       'ep'     => 'MASTER',
       'mail'   => 'MASTER',
       default  => 'BACKUP',
     },
-    default => $::zone ? {
+    default => $zone ? {
       'doi'    => 'BACKUP',
       'ep'     => 'BACKUP',
       'mail'   => 'BACKUP',

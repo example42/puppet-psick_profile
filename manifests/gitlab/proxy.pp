@@ -11,7 +11,7 @@
 #
 class psick_profile::gitlab::proxy (
   String                $ensure      = 'present',
-  Boolean               $auto_prereq = false,
+  Boolean               $auto_prereq = true,
   Optional[String]      $template    = 'psick_profile/gitlab/proxy/nginx_gitlab_proxy.conf.erb',
   Hash                  $options     = {},
   String                $server_name = $facts['networking']['fqdn'],
@@ -23,9 +23,7 @@ class psick_profile::gitlab::proxy (
   }
   $proxy_options = $options_default + $options
   if $auto_prereq {
-    ::tp::install { 'nginx' :
-      ensure             => $ensure,
-    }
+    include psick_profile::nginx::tp
   }
 
   if $template {

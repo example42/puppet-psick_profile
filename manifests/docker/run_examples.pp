@@ -14,7 +14,7 @@ class psick_profile::docker::run_examples (
 
     include psick_profile::docker
 
-    Psick::Docker::Run {
+    Psick_profile::Docker::Run {
       ensure   => $ensure,
       require  => Class['psick_profile::docker'],
       run_mode => $default_run_mode,

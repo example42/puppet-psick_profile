@@ -123,6 +123,7 @@ class psick_profile::gitlab (
       refreshonly => true,
       timeout     => '600',
       subscribe   => Package['gitlab-ce'],
+      path        => $facts['path'],
     }
 
     if $use_https {
