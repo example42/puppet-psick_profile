@@ -10,8 +10,6 @@ describe 'psick_profile::oracle::prerequisites::users' do
 
       if os.include?('windows')
         it { is_expected.to compile.and_raise_error(/.*/) }
-      elsif os.include?('darwin')
-          it { is_expected.to compile.and_raise_error(/.*/) }
       else
         it { is_expected.to compile.with_all_deps }
       end

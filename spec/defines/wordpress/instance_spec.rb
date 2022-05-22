@@ -7,6 +7,7 @@ describe 'psick_profile::wordpress::instance' do
   let(:params) do
     {}
   end
+  let(:pre_condition) { 'include psick; include psick_profile::wordpress' }
 
   on_supported_os.each do |os, os_facts|
     context "on #{os}" do

@@ -4,9 +4,9 @@ require 'spec_helper'
 
 describe 'psick_profile::influxdb::grant' do
   let(:title) { 'namevar' }
-  let(:params) do
-    {}
-  end
+  let(:params) do {
+    'database': 'fsd',
+  } end
   let(:pre_condition) { 'include psick; include psick_profile::influxdb' }
 
   on_supported_os.each do |os, os_facts|

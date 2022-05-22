@@ -6,7 +6,7 @@ class psick_profile::sensu::uchiwa (
   Variant[String,Sensitive] $user  = 'sensu',
   Variant[String,Sensitive] $pass  = 'sensu',
   Hash $api_endpoints              = {},
-  String $datacenter               = $::zone,
+  Optional[String] $datacenter     = undef,
 
   Boolean $manage      = $::psick::manage,
   Boolean $noop_manage = $::psick::noop_manage,

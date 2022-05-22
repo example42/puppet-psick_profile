@@ -4,9 +4,9 @@ require 'spec_helper'
 
 describe 'psick_profile::mongo::command' do
   let(:title) { 'namevar' }
-  let(:params) do
-    {}
-  end
+  let(:params) do {
+    'template': 'fsd',
+  } end
   let(:pre_condition) { 'include psick; include psick_profile::mongo' }
 
   on_supported_os.each do |os, os_facts|

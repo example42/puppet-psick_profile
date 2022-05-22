@@ -5,7 +5,10 @@ require 'spec_helper'
 describe 'psick_profile::gitlab::runner_register' do
   let(:title) { 'namevar' }
   let(:params) do
-    {}
+    {
+      'token': 'fsd',
+      'url': 'http/hh/h'
+    }
   end
 
   on_supported_os.each do |os, os_facts|

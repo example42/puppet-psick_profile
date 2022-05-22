@@ -17,6 +17,9 @@ fixtures:
     "homebrew": "https://github.com/michaelw/puppet-homebrew"
     "prometheus": "https://github.com/voxpupuli/puppet-prometheus"
     "registry": "https://github.com/puppetlabs/puppetlabs-registry"
+    "augeas": "https://github.com/puppetlabs/puppetlabs-augeas_core"
+    "mount": "https://github.com/puppetlabs/puppetlabs-mount_core"
 
   forge_modules:
     "vagrant": 'unibet-vagrant'
+    "r10k": 'puppet-r10k'

@@ -4,9 +4,10 @@ require 'spec_helper'
 
 describe 'psick_profile::grafana::user' do
   let(:title) { 'namevar' }
-  let(:params) do
-    {}
-  end
+  let(:params) do {
+    'database': 'fsd',
+    'password': 'http/hh/h'
+  } end
   let(:pre_condition) { 'include psick; include psick_profile::grafana' }
 
   on_supported_os.each do |os, os_facts|

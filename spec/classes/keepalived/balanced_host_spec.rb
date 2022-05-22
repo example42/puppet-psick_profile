@@ -4,7 +4,7 @@ require 'spec_helper'
 
 describe 'psick_profile::keepalived::balanced_host' do
   on_supported_os.each do |os, os_facts|
-    context "on #{os}" do
+    skip "on #{os}" do
       let(:facts) { os_facts }
       let(:params) do {
         'vip': '1.1.1.1',

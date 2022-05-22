@@ -50,14 +50,14 @@ class psick_profile::wordpress (
   String          $web_base_dir             = '/var/www/html',
   String          $wordpress_sitename       = "wordpress.${::domain}",
   String          $wordpress_alias          = "www.wordpress.${::domain}",
-  String          $web_template             = 'psick/wordpress/httpd.conf.erb',
-  String          $web_virtualhost_template = 'psick/wordpress/wordpress.conf.erb',
+  String          $web_template             = 'psick_profile/wordpress/httpd.conf.erb',
+  String          $web_virtualhost_template = 'psick_profile/wordpress/wordpress.conf.erb',
   Hash            $web_options              = {},
 
   Boolean         $php_manage               = true,
   Array           $php_tp_installs          = [ 'php', 'php-fpm' ],
   Hash            $php_modules_hash         = {},
-  String          $php_fpm_pool_template    = 'psick/wordpress/php-fpm-pool.conf.erb',
+  String          $php_fpm_pool_template    = 'psick_profile/wordpress/php-fpm-pool.conf.erb',
   Optional[String] $php_modules_prefix      = 'php-',
 
   Boolean         $ftp_manage               = true,

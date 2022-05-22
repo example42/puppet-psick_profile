@@ -4,7 +4,7 @@ require 'spec_helper'
 
 describe 'psick_profile::prometheus::node_exporter' do
   on_supported_os.each do |os, os_facts|
-    context "on #{os}" do
+    skip "on #{os}" do
       let(:facts) { os_facts }
 
       it { is_expected.to compile.with_all_deps }

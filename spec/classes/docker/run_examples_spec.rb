@@ -4,7 +4,7 @@ require 'spec_helper'
 
 describe 'psick_profile::docker::run_examples' do
   on_supported_os.each do |os, os_facts|
-    context "on #{os}" do
+    skip "on #{os}" do
       let(:facts) { os_facts }
 
       if os.include?('windows')

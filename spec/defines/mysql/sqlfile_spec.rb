@@ -4,9 +4,9 @@ require 'spec_helper'
 
 describe 'psick_profile::mysql::sqlfile' do
   let(:title) { 'namevar' }
-  let(:params) do
-    {}
-  end
+  let(:params) do {
+    'file': 'fsd',
+  } end
 
   on_supported_os.each do |os, os_facts|
     context "on #{os}" do
