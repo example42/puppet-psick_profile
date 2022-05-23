@@ -52,7 +52,7 @@ class psick_profile::openvpn (
         }
       }
       'psick_profile': {
-        contain psick_profile::openvpn::install
+        contain psick_profile::openvpn::tp
         $connections.each |$k,$v| {
           psick_profile::openvpn::connection { $k:
             * => $v,

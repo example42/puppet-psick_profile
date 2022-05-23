@@ -78,5 +78,6 @@ class psick_profile::oracle::prerequisites::sysctl (
     subscribe   => File['/etc/sysctl.conf'],
     command     => 'cat /etc/sysctl.conf /etc/sysctl.d/*.conf | sysctl -p -',
     refreshonly => true,
+    path        => $facts['path'],
   }
 }

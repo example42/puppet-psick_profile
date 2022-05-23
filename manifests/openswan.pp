@@ -22,7 +22,7 @@ class psick_profile::openswan (
 
     case $module {
       'psick_profile': {
-        contain psick_profile::openswan::install
+        contain psick_profile::openswan::tp
       }
       default: {
         contain openswan

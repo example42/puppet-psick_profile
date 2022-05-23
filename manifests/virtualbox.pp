@@ -27,7 +27,7 @@ class psick_profile::virtualbox (
         contain tp_profile::virtualbox
       }
       'psick_profile': {
-        contain psick_profile::virtualbox::install
+        contain psick_profile::virtualbox::tp
       }
       default: {
         contain $module

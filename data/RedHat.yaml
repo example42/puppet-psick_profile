@@ -8,3 +8,11 @@ psick_profile::ganglia::packages:
   - 'ganglia-gmond'
   - 'ganglia-gmond-modules-python'
   - 'libganglia-3_1_0'
+
+psick_profile::wordpress::php_tp_installs-:
+  - remi
+  - php80
+  - php-fpm
+  - php80-php-fpm
+
+psick_profile::wordpress::php_modules_prefix-: php80-php-

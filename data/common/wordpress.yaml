@@ -1,0 +1,21 @@
+---
+# psick_profile::wordpress
+psick_profile::wordpress::php_modules_hash:
+  mysqlnd: {}
+  dom: {}
+  simplexml: {}
+  xml: {}
+  xmlreader: {}
+  curl: {}
+  exif: {}
+  ftp: {}
+  gd: {}
+  iconv: {}
+#  imagick: {}
+  json: {}
+  mbstring: {}
+  posix: {}
+  sockets: {}
+  tokenizer: {}
+  zip: {}
+

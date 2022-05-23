@@ -146,13 +146,13 @@ class psick_profile::icinga2 (
         $influxdb_service_enable = false
       }
 
-      class { 'psick_profile::influxdb::install':
+      class { 'psick_profile::influxdb::tp':
         settings_hash => {
           service_ensure => $influxdb_service_ensure,
           service_enable => $influxdb_service_enable,
         },
       }
-      Class[psick_profile::influxdb::install] -> Psick_profile::Influxdb::Database<||>
+      Class[psick_profile::influxdb::tp] -> Psick_profile::Influxdb::Database<||>
 
       psick_profile::influxdb::database { 'icinga2':
         database        => $influxdb_settings['database'],
@@ -195,7 +195,7 @@ class psick_profile::icinga2 (
     if $ido_manage and $is_server {
       case $ido_backend {
         'mysql': {
-          psick::mysql::grant { 'icinga2':
+          psick_profile::mysql::grant { 'icinga2':
             user       => $ido_settings['user'],
             password   => $ido_settings['password'],
             db         => $ido_settings['database'],
@@ -208,11 +208,11 @@ class psick_profile::icinga2 (
             password      => $ido_settings['password'],
             database      => $ido_settings['database'],
             import_schema => true,
-            require       => Psick::Mysql::Grant['icinga2'],
+            require       => Psick_profile::Mysql::Grant['icinga2'],
           }
         }
         'mariadb': {
-          psick::mariadb::grant { 'icinga2':
+          psick_profile::mariadb::grant { 'icinga2':
             user       => $ido_settings['user'],
             password   => $ido_settings['password'],
             db         => $ido_settings['database'],
@@ -225,7 +225,7 @@ class psick_profile::icinga2 (
             password      => $ido_settings['password'],
             database      => $ido_settings['database'],
             import_schema => true,
-            require       => Psick::Mariadb::Grant['icinga2'],
+            require       => Psick_profile::Mariadb::Grant['icinga2'],
           }
         }
         'pgsql': {

@@ -8,6 +8,8 @@ class psick_profile::keepalived (
   Boolean                  $noop_manage          = $::psick::noop_manage,
   Boolean                  $noop_value           = $::psick::noop_value,
 
+  String $zone        = getvar('::zone','default'),
+  String $env         = getvar('::env','production'),
 ) {
   if $manage {
     if $noop_manage {
@@ -71,6 +73,6 @@ class psick_profile::keepalived (
       }
     }
     # collect fragement which has to be placed in services/<zone>-<role>-<env>-<kind>.conf
-    Concat::Fragment <<| tag == "lb_${::zone}-${::env}" |>>
+    Concat::Fragment <<| tag == "lb_${zone}-${env}" |>>
   }
 }
