@@ -7,7 +7,7 @@ describe 'psick_profile::icinga2::config' do
   let(:params) do
     {}
   end
-  let(:pre_condition) { 'include psick; include psick_profile::icinga2; include icinga2' }
+  let(:pre_condition) { 'include psick; include icinga2; include psick_profile::icinga2' }
 
   on_supported_os.each do |os, os_facts|
     context "on #{os}" do
