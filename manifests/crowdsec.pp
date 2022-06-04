@@ -26,7 +26,7 @@ class psick_profile::crowdsec (
       # TODO: Make this more reliable (find command to check if console is enrolled)
       Service['crowdsec'] ~> Exec["cscli console enroll --name ${enroll_name}"]
       exec { "cscli console enroll --name ${enroll_name}":
-        command     => "cscli console enroll --name ${enroll_name} ${entroll_key}",
+        command     => "cscli console enroll --name ${enroll_name} ${enroll_key}",
         path        => $facts['path'],
         refreshonly => true,
       }
