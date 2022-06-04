@@ -37,8 +37,8 @@ class psick_profile::wordpress (
   Boolean         $wordpress_manage         = true,
   String          $wordpress_tarball_url    = 'https://wordpress.org/latest.tar.gz',
   Boolean         $wordpress_multisite      = true,
-  String          $wordpress_htaccess_template = 'psick/wordpress/htaccess.erb',
-  String          $wordpress_wpconfig_template = 'psick/wordpress/wp-config.php.erb',
+  String          $wordpress_htaccess_template = 'psick_profile/wordpress/htaccess.erb',
+  String          $wordpress_wpconfig_template = 'psick_profile/wordpress/wp-config.php.erb',
 
   Boolean         $db_manage                = true,
   String          $db_name                  = 'wordpress',

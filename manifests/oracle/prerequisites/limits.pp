@@ -40,7 +40,7 @@ class psick_profile::oracle::prerequisites::limits (
   }
 
   if $template and $template != '' {
-    file { '/etc/security/limits.conf':
+    file { '/etc/security/limits.d/oracle.conf':
       ensure  => file,
       content => template($template),
     }

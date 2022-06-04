@@ -7,3 +7,4 @@ All notable changes to this project will be documented in this file.
 *   First release with several profiles moved from psick module
 *   General Puppet Lint cleanups
 *   CI setup
+*   Unit tests for each class and define

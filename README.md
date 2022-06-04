@@ -2,7 +2,6 @@
 
 [![Coverage Status](https://coveralls.io/repos/example42/puppet-psick_profile/badge.svg?branch=master&service=github)](https://coveralls.io/github/example42/puppet-psick_profile?branch=master)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/81f58c072b394923b760927ff1ad28ef)](https://www.codacy.com/gh/example42/puppet-psick_profile/dashboard?utm_source=github.com&utm_medium=referral&utm_content=example42/puppet-psick_profile&utm_campaign=Badge_Grade)
-
 This module provides a collection of reusable profiles for common applications.
 
 For most of the profiles is not needed a dedicated component module.

@@ -5,7 +5,8 @@ require 'spec_helper'
 describe 'psick_profile::mongo::command' do
   let(:title) { 'namevar' }
   let(:params) do {
-    'template': 'fsd',
+    'path': '/tmp/me.txt',
+    'template': 'psick_profile/mongo/add_member.js.erb',
   } end
   let(:pre_condition) { 'include psick; include psick_profile::mongo' }
 
