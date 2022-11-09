@@ -1,2 +1,2 @@
 ---
-psick::monitor::snmpd::extra_packages: []
+psick_profile::monitor::snmpd::extra_packages: []
