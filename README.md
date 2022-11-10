@@ -102,7 +102,7 @@ In your control-repos' `manifests/site.pp` just classify psick for all nodes:
 
 An then manage everything via Hiera (refer to psick documentation for details), classification included, with something like:
 
-    # Psick based classification for Linux nodes:
+    # Psick based classification for Linux nodes:
     psick::pre::linux_classes:
       puppet: psick::puppet
       hostname: psick::hostname
