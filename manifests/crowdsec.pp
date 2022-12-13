@@ -5,8 +5,8 @@
 # @example
 #   include psick_profile::crowdsec
 class psick_profile::crowdsec (
-  String  $install_class    = 'psick_profile::crowdsec::tp',
-  Hash    $collections_hash = {},
+  String  $install_class        = 'psick_profile::crowdsec::tp',
+  Hash    $collections_hash     = {},
   Boolean $manage               = $::psick::manage,
   Boolean $noop_manage          = $::psick::noop_manage,
   Boolean $noop_value           = $::psick::noop_value,
