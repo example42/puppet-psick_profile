@@ -95,7 +95,7 @@ class psick_profile::remediate (
     if $swarm_init {
       exec { 'docker swarm init remediate':
         command => "docker swarm init && touch ${remediate_dir}/.docker-swarn-init-remediate.lock",
-        path    => $::path,
+        path    => $facts['path'],
         user    => $user,
         cwd     => $remediate_dir,
         creates => "${remediate_dir}/.docker-swarn-init-remediate.lock",
@@ -103,7 +103,7 @@ class psick_profile::remediate (
     }
     exec { 'docker-compose run remediate':
       command  => 'docker-compose run remediate start --license-file license.json', # lint:ignore:140char
-      path     => $::path,
+      path     => $facts['path'],
       cwd      => $remediate_dir,
       user     => $user,
       provider => 'shell',
