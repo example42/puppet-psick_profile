@@ -32,7 +32,7 @@ define psick_profile::grafana::user (
   exec { "grafana user add ${title}":
     command     => "${user_dir_path}/${user}_${host}",
     require     => $exec_require,
-    path        => $::path,
+    path        => $facts['path'],
     refreshonly => true,
   }
 }

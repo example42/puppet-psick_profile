@@ -1,7 +1,7 @@
 # class psick_profile::sensu::uchiwa
 #
 class psick_profile::sensu::uchiwa (
-  Stdlib::Compat::Ip_address $host = '0.0.0.0',
+  Stdlib::IP::Address $host = '0.0.0.0',
   Integer $port                    = 3000,
   Variant[String,Sensitive] $user  = 'sensu',
   Variant[String,Sensitive] $pass  = 'sensu',

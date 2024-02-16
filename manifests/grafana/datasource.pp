@@ -37,7 +37,7 @@ define psick_profile::grafana::datasource (
   Optional[Hash]    $json_data          = undef,
   Optional[Hash]    $secure_json_data   = undef,
   Optional[Boolean] $editable           = undef,
-  Optional[Hash]    $options            = {},
+  [Hash]    $options            = {},
 ) {
   tp::conf { "grafana::${file_name}":
     content  => template($template),

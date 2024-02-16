@@ -48,7 +48,7 @@ class psick_profile::keepalived (
     # split vs to get role to find correct mapping in hieradata for the configured role-loadbalancing-variables like
     # vip, vip_mask and options
     # write File for vrrp_instance via given function
-    $virtualservers=hiera_array('virtualservers', [])
+    $virtualservers=lookup('virtualservers', Array, 'unique', [])
     $virtualservers.each | String $vs | {
       $vs_split=split($vs,'-')
       $app_role=$vs_split[1]
