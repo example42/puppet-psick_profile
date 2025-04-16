@@ -8,7 +8,7 @@
 # @param manage_installation Set to true to atually install GitLab. Default,
 #                            false, just manages symlink in /etc/ssh/auth_keys
 # @param use_https Define if you want gitlab services to use ssl.
-# @param server_name The name to use for the GitLab website. Default: $::fqdn,
+# @param server_name The name to use for the GitLab website. Default: $::networking['fqdn'],
 #                    If you set a name different from the local machine fqdn,
 #                    provide custom cert files via *_file_source params
 # @param ca_file_source Puppet source for the ca certificate. By default Puppet CA is

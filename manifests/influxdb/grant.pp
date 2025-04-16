@@ -81,7 +81,7 @@ define psick_profile::influxdb::grant (
   # Attempt to autoconfigure dependencies based on server host. Can be
   # overridden with param $exec_params
   $exec_require = $server_host ? {
-    /(localhost|127.0.0.1|$fqdn|$hostname|$ipaddress)/ => [Package[influxdb],Service[influxdb]],
+    /(localhost|127.0.0.1|$::networking['fqdn']|$::networking['hostname']|$::networking['ip'])/ => [Package[influxdb],Service[influxdb]],
     default                                            => [Package[influxdb]],
   }
   $exec_default_options = {

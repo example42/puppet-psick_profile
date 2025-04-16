@@ -48,8 +48,8 @@ class psick_profile::wordpress (
 
   Boolean         $web_manage               = true,
   String          $web_base_dir             = '/var/www/html',
-  String          $wordpress_sitename       = "wordpress.${::domain}",
-  String          $wordpress_alias          = "www.wordpress.${::domain}",
+  String          $wordpress_sitename       = "wordpress.${facts['networking']['domain']}",
+  String          $wordpress_alias          = "www.wordpress.${facts['networking']['domain']}",
   String          $web_template             = 'psick_profile/wordpress/httpd.conf.erb',
   String          $web_virtualhost_template = 'psick_profile/wordpress/wordpress.conf.erb',
   Hash            $web_options              = {},

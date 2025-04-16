@@ -1,87 +1,87 @@
-# psick_profile::openswan::tp
+# psick_profile::vagrant::tp
 #
-# @summary This tp profile manages openswan with Tiny Puppet (tp)
+# @summary This tp profile manages vagrant with Tiny Puppet (tp)
 #
 # When you include this class the relevant tp::install define is declared
-# which is expected to install openswan package and manage its service.
+# which is expected to install vagrant package and manage its service.
 # Via the resources_hash parameter is possible to pass hashes of tp::conf and
-# tp::dir defines which can manage openswan configuration files and
+# tp::dir defines which can manage vagrant configuration files and
 # whole dirs.
 # All the parameters ending with the _hash suffix expect and Hash and are looked
 # up on Hiera via the deep merge lookup option.
 #
-# @example Just include it to install openswan
-#   include psick_profile::openswan::tp
+# @example Just include it to install vagrant
+#   include psick_profile::vagrant::tp
 #
 # @example Include via psick module classification (yaml)
 #   psick::profiles::linux_classes:
-#     openswan: psick_profile::openswan::tp
+#     vagrant: psick_profile::vagrant::tp
 #
 # @example To use upstream repos instead of OS defaults (if tinydata available) as packages source:
-#   psick_profile::openswan::tp::upstream_repo: true
+#   psick_profile::vagrant::tp::upstream_repo: true
 #
 # @example Manage extra configs via hiera (yaml) with templates based on custom options
-#   psick_profile::openswan::tp::ensure: present
-#   psick_profile::openswan::tp::resources:
+#   psick_profile::vagrant::tp::ensure: present
+#   psick_profile::vagrant::tp::resources:
 #     tp::conf:
-#       openswan:
-#         epp: profile/openswan/openswan.conf.epp
-#       openswan::dot.conf:
-#         epp: profile/openswan/dot.conf.epp
+#       vagrant:
+#         epp: profile/vagrant/vagrant.conf.epp
+#       vagrant::dot.conf:
+#         epp: profile/vagrant/dot.conf.epp
 #         base_dir: conf
 #     exec:
-#       openswan::setup:
-#         command: '/usr/local/bin/openswan_setup'
-#         creates: '/opt/openswan'
-#   psick_profile::openswan::tp::options:
+#       vagrant::setup:
+#         command: '/usr/local/bin/vagrant_setup'
+#         creates: '/opt/vagrant'
+#   psick_profile::vagrant::tp::options:
 #     key: value
 #
 # @example Enable default auto configuration, if configurations are available
 #   for the underlying system and the given auto_conf value, they are
 #   automatically added.
-#   psick_profile::openswan::tp::auto_conf: true
+#   psick_profile::vagrant::tp::auto_conf: true
 #
 # @param manage If to actually manage any resource in this profile or not.
-# @param ensure If to install or remove openswan. Valid values are present, absent, latest
-#   or any version string, matching the expected openswan package version.
-# @param upstream_repo If to use openswan upstream repos as source for packages
+# @param ensure If to install or remove vagrant. Valid values are present, absent, latest
+#   or any version string, matching the expected vagrant package version.
+# @param upstream_repo If to use vagrant upstream repos as source for packages
 #   or rely on default packages from the underlying OS.
 #
 # @param install_hash An hash of valid params to pass to tp::install defines. Useful to
 #   manage specific params that are not automatically defined.
 # @param options An open hash of options to use in the templates referenced
 #   in the tp::conf entries of the $resources_hash.
-# @param settings_hash An hash of tp settings to override default openswan file
+# @param settings_hash An hash of tp settings to override default vagrant file
 #   paths, package names, repo info and whatever tinydata that matches Tp::Settings data type:
 #   https://github.com/example42/puppet-tp/blob/master/types/settings.pp.
 #
-# @param auto_conf If to enable automatic configuration of openswan based on the
+# @param auto_conf If to enable automatic configuration of vagrant based on the
 #   resources_auto_conf_hash and options_auto_conf_hash parameters, if present in
-#   data/common/openswan.yaml. You can both override them in your Hiera files
+#   data/common/vagrant.yaml. You can both override them in your Hiera files
 #   and merge them with your resources and options.
 # @param resources_auto_conf_hash The default resources hash if auto_conf is true.
 #   The final resources managed are the ones specified here and in $resources.
-#   Check psick_profile::openswan::tp::resources_auto_conf_hash in
-#   data/common/openswan.yaml for the auto_conf defaults.
+#   Check psick_profile::vagrant::tp::resources_auto_conf_hash in
+#   data/common/vagrant.yaml for the auto_conf defaults.
 # @param options_auto_conf_hash The default options hash if auto_conf is set.
-#   Check psick_profile::openswan::tp::options_auto_conf_hash in
-#   data/common/openswan.yaml for the auto_conf defaults.
+#   Check psick_profile::vagrant::tp::options_auto_conf_hash in
+#   data/common/vagrant.yaml for the auto_conf defaults.
 #
 # @param resources An hash of any resource, like tp::conf, tp::dir, exec or whatever
-#   to declare for openswan confiuration. Can also come from a third-party
-#   component modules with dedicated openswan resources.
+#   to declare for vagrant confiuration. Can also come from a third-party
+#   component modules with dedicated vagrant resources.
 #   tp::conf params: https://github.com/example42/puppet-tp/blob/master/manifests/conf.pp
 #   tp::dir params: https://github.com/example42/puppet-tp/blob/master/manifests/dir.pp
 #   any other Puppet resource type, with relevant params can be actually used
 #   The Hiera lookup method used for this parameter is defined with the $resource_lookup_method
 #   parameter.
-# @param resource_lookup_method What lookup method to use for psick_profile::openswan::tp::resources
+# @param resource_lookup_method What lookup method to use for psick_profile::vagrant::tp::resources
 # @param resources_defaults An Hash of resources with their default params, to be merged with
 #   $resources.
 #
-# @param auto_prereq If to automatically install eventual dependencies for openswan.
+# @param auto_prereq If to automatically install eventual dependencies for vagrant.
 #   Set to false if you have problems with duplicated resources, being sure that you
-#   manage the prerequistes to install openswan (other packages, repos or tp installs).
+#   manage the prerequistes to install vagrant (other packages, repos or tp installs).
 #
 # @param noop_manage If to manage noop mode via the noop() function for the resources of
 #   this class. This must be true for noop_value to have effect.
@@ -90,8 +90,8 @@
 #   When false, no-noop in enforced on all the class' resources and overrides any other noop
 #   setting (also from clients' puppet.conf
 #
-class psick_profile::openswan::tp (
-  Psick::Ensure      $ensure                   = 'present',
+class psick_profile::vagrant::tp (
+  Psick::Ensure $ensure                   = 'present',
   Boolean            $manage                   = true,
   Optional[Boolean]  $upstream_repo            = undef,
 
@@ -116,7 +116,7 @@ class psick_profile::openswan::tp (
   Boolean            $noop_manage              = false,
   Boolean            $noop_value               = false,
 ) {
-  $options=lookup('psick_profile::openswan::tp::options', Hash, $options_lookup_method, {})
+  $options=lookup('psick_profile::vagrant::tp::options', Hash, $options_lookup_method, {})
 
   if $manage {
     if $noop_manage {
@@ -135,7 +135,7 @@ class psick_profile::openswan::tp (
       auto_prereq   => $auto_prereq,
       upstream_repo => $upstream_repo,
     }
-    tp::install { 'openswan':
+    tp::install { 'vagrant':
       * => $install_defaults + $install_hash,
     }
 
@@ -148,8 +148,8 @@ class psick_profile::openswan::tp (
       default  => 'directory',
     }
 
-    # Declaration of psick_profile::openswan::tp::resources
-    $resources=lookup('psick_profile::openswan::tp::resources', Hash, $resources_lookup_method, {})
+    # Declaration of psick_profile::vagrant::tp::resources
+    $resources=lookup('psick_profile::vagrant::tp::resources', Hash, $resources_lookup_method, {})
     $resources.each |String $resource_type, Hash $content| {
       $resources_all = $auto_conf ? {
         true  => pick($resources_auto_conf_hash[$resource_type], {}) + pick($resources[$resource_type], {}),

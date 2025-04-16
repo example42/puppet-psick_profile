@@ -21,8 +21,8 @@ define psick_profile::wordpress::instance (
 
   Boolean         $web_manage               = true,
   String          $web_base_dir             = '/var/www/html',
-  String          $wordpress_sitename       = "${title}.${::domain}",
-  String          $wordpress_alias          = "www.${title}.${::domain}",
+  String          $wordpress_sitename       = "${title}.${facts['networking']['domain']}",
+  String          $wordpress_alias          = "www.${title}.${facts['networking']['domain']}",
   String          $web_template             = 'psick_profile/wordpress/httpd.conf.erb',
   String          $web_virtualhost_template = 'psick_profile/wordpress/wordpress.conf.erb',
   Hash            $web_options              = {},

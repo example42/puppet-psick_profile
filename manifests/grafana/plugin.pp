@@ -26,7 +26,7 @@ define psick_profile::grafana::plugin (
       unless  => "grafana-cli plugins ls | grep ${plugin} | grep '${version}'",
       notify  => $exec_notify,
       require => $exec_require,
-      path    => $::path,
+      path    => $facts['path'],
     }
   } else {
     exec { "grafana plugins uninstall ${plugin}":
@@ -34,7 +34,7 @@ define psick_profile::grafana::plugin (
       onlyif  => "grafana-cli plugins ls | grep ${plugin}",
       notify  => $exec_notify,
       require => $exec_require,
-      path    => $::path,
+      path    => $facts['path'],
     }
   }
 }
